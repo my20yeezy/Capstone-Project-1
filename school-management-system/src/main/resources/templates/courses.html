@@ -1,11 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www/thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>Courses</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
-    <table>
+
+<p id = "role-and-name">[admin] FirstName LastName</p>
+
+<input type="button" value="log out" class="logout-button">
+
+<h1 class = "header">Courses</h1>
+
+<div id = "left-menu">
+    <ul id = "left-menu-list">
+        <li class = "left-menu-element">courses</li>
+        <li class = "left-menu-element">students</li>
+        <li class = "left-menu-element">teachers</li>
+    </ul>
+</div>
+
+<div class="main-table">
+<table>
+    <thead>
         <tr>
             <th>Name</th>
             <th>Description</th>
@@ -15,7 +34,21 @@
             <th>Time</th>
             <th>Actions</th>
         </tr>
-    </table>
+    </thead>
+    <tbody>
+        <tr th:each="course: ${listCourses}">
+            <td th:text = "${course.courseName}"></td>
+            <td th:text = "${course.courseDescription}"></td>
+        </tr>
+    </tbody>
+    <tr>
+
+    </tr>
+
+</table>
+</div>
+
+<input class="add-course-button" type="button" value="add course">
 
 </body>
 </html>

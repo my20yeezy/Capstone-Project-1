@@ -1,0 +1,87 @@
+body {
+    background-image: url("bg-2.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+
+    font-family: Tahoma, Helvetica, sans-serif;
+}
+
+.header {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+#left-menu {
+    font-weight: bold;
+    font-size: 16px;
+    border: 2px solid black;
+    width: 175px;
+    position: absolute;
+    top: 140px;
+
+}
+
+#left-menu-list {
+    list-style-type: none;
+}
+
+.left-menu-element {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.main-table {
+    position: absolute;
+    top: 140px;
+    left: 300px;
+    width: 80%;
+}
+
+th {
+    height: 50px;
+    background-color: #f7c081;
+    color: black;
+}
+
+th, td {
+  border-bottom: 1px solid black;
+}
+
+tr:hover {
+    background-color: #fa9857;
+}
+
+#role-and-name {
+    position: absolute;
+    left: 5px;
+    top: 5px;
+}
+
+.logout-button {
+    position: absolute;
+    left: 95%;
+    top: 5px;
+    right: 5px;
+}
+
+.add-course-button {
+    position: absolute;
+    left: 5px;
+    top: 30px;
+}
+
+.welcome-screen-email {
+    position: absolute;
+    left: 630px;
+    top: 200px;
+}
+
+
+.welcome-screen-password {
+    position: absolute;
+    left: 600px;
+    top: 250px;
+
+}
