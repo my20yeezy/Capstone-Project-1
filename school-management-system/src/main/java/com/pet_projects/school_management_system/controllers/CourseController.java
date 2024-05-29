@@ -1,7 +1,6 @@
 package com.pet_projects.school_management_system.controllers;
 
 import com.pet_projects.school_management_system.services.CourseService;
-import com.pet_projects.school_management_system.services.CourseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,7 @@ public class CourseController {
     private CourseService courseService;
 
     @GetMapping("/courses")
-    public String getAllCourses(Model model) {
+    public String allCoursesScreen(Model model) {
         model.addAttribute("listCourses", courseService.getAllCourses());
         return "courses";
     }
@@ -23,6 +22,18 @@ public class CourseController {
     public String welcomeScreen(Model model) {
 
         return "welcome";
+    }
+
+    @GetMapping("/create-account")
+    public String createAccountScreen(Model model) {
+
+        return "create-account";
+    }
+
+    @GetMapping("/add-update-course")
+    public String addUpdateCourse(Model model) {
+
+        return "add-update-course";
     }
 
 }

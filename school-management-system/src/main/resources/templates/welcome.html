@@ -2,16 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Courses</title>
+    <title>Welcome</title>
     <link rel="stylesheet" th:href="@{/style.css}"/>
 </head>
 <body>
 
 <h1 class = "header">Welcome to school management system</h1>
 
-<p class = "welcome-screen-email">email</p>
-<p class = "welcome-screen-password">password</p>
+<form>
 
+    <label class = "welcome-screen-email">email</label>
+    <input type="email" name="email" class="email-input">
+
+    <label class = "welcome-screen-password">password</label>
+    <input type="password" name="password" class="password-input">
+
+    <input type="submit" value="login" class="login-button">
+
+</form>
+
+<p class="create-account-or">or</p>
+<input type="button" value="create account" class="create-account-button" onclick = "window.location.href = 'create-account'">
 
 </body>
 </html>

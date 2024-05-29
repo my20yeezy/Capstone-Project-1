@@ -4,7 +4,7 @@ body {
     background-attachment: fixed;
     background-size: cover;
 
-    font-family: Tahoma, Helvetica, sans-serif;
+    font-family: Helvetica, sans-serif;
 }
 
 .header {
@@ -13,17 +13,17 @@ body {
     font-weight: bold;
 }
 
-#left-menu {
+.left-menu {
     font-weight: bold;
     font-size: 16px;
     border: 2px solid black;
     width: 175px;
     position: absolute;
-    top: 140px;
+    top: 120px;
 
 }
 
-#left-menu-list {
+.left-menu-list {
     list-style-type: none;
 }
 
@@ -34,9 +34,9 @@ body {
 
 .main-table {
     position: absolute;
-    top: 140px;
-    left: 300px;
-    width: 80%;
+    top: 120px;
+    left: 200px;
+    width: 85%;
 }
 
 th {
@@ -53,7 +53,7 @@ tr:hover {
     background-color: #fa9857;
 }
 
-#role-and-name {
+.role-and-name {
     position: absolute;
     left: 5px;
     top: 5px;
@@ -61,27 +61,138 @@ tr:hover {
 
 .logout-button {
     position: absolute;
-    left: 95%;
-    top: 5px;
-    right: 5px;
+    left: 5px;
+    top: 50px;
 }
 
 .add-course-button {
     position: absolute;
     left: 5px;
-    top: 30px;
+    top: 80px;
 }
 
 .welcome-screen-email {
+    font-size: 20px;
     position: absolute;
-    left: 630px;
+    left: 675px;
     top: 200px;
 }
 
-
 .welcome-screen-password {
+    font-size: 20px;
     position: absolute;
-    left: 600px;
+    left: 670px;
     top: 250px;
+}
 
+.email-input {
+    font-size: 20px;
+    position: absolute;
+    left: 740px;
+    top: 200px;
+}
+
+.password-input {
+    font-size: 20px;
+    position: absolute;
+    left: 740px;
+    top: 250px;
+}
+
+.login-button {
+    font-size: 20px;
+    position: absolute;
+    left: 815px;
+    top: 300px;
+}
+
+.create-account-or {
+    font-size: 18px;
+    position: absolute;
+    left: 830px;
+    top: 450px;
+}
+
+.create-account-button {
+    font-size: 20px;
+    position: absolute;
+    left: 770px;
+    top: 500px;
+}
+
+.welcome-first-name {
+    font-size: 20px;
+    position: absolute;
+    left: 640px;
+    top: 300px;
+}
+
+.firstname-input {
+    font-size: 20px;
+    position: absolute;
+    left: 740px;
+    top: 300px;
+}
+
+.welcome-last-name {
+    font-size: 20px;
+    position: absolute;
+    left: 640px;
+    top: 350px;
+}
+
+.lastname-input {
+    font-size: 20px;
+    position: absolute;
+    left: 740px;
+    top: 350px;
+}
+
+.welcome-role {
+    font-size: 20px;
+    position: absolute;
+    left: 690px;
+    top: 400px;
+}
+
+.role-student-input {
+    font-size: 20px;
+    position: absolute;
+    left: 740px;
+    top: 403px;
+}
+
+.role-teacher-input {
+    font-size: 20px;
+    position: absolute;
+    left: 850px;
+    top: 403px;
+}
+
+.student-label {
+    font-size: 20px;
+    position: absolute;
+    left: 760px;
+    top: 400px;
+}
+
+.teacher-label {
+    font-size: 20px;
+    position: absolute;
+    left: 870px;
+    top: 400px;
+}
+
+.create-account-submit {
+    font-size: 20px;
+    position: absolute;
+    left: 770px;
+    top: 500px;
+}
+
+.back-to-welcome-button {
+    font-size: 20px;
+    position: absolute;
+    left: 740px;
+    top: 550px;
 }
