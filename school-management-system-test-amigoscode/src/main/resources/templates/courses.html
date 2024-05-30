@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Courses</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+
+<p class = "role-and-name">[admin] FirstName LastName</p>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="log out" class="logout-button">
+</form>
+
+
+<h1 class = "header">Courses</h1>
+
+<div class = "left-menu">
+    <ul class = "left-menu-list">
+        <li class = "left-menu-element">courses</li>
+        <li class = "left-menu-element">students</li>
+        <li class = "left-menu-element">teachers</li>
+    </ul>
+</div>
+
+<div >
+<table class="main-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Teacher</th>
+            <th>Number of students</th>
+            <th>Schedule</th>
+            <th>Time</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="course: ${listCourses}">
+            <td th:text = "${course.courseName}"></td>
+            <td th:text = "${course.courseDescription}"></td>
+        </tr>
+    </tbody>
+    <tr>
+
+    </tr>
+
+</table>
+</div>
+
+<div class="add-course-button">
+    <input type="button" value="add course" onclick = "window.location.href = 'add-update-course'">
+</div>
+
+
+</body>
+</html>
