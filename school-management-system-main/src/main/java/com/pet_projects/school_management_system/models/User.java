@@ -1,127 +1,52 @@
-package com.pet_projects.school_management_system.models;
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
-
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "users")
-public class User implements UserDetails {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private int id;
-
-    @Column(name = "first_name")
-    private String firstName;
-
-    @Column(name = "last_name")
-    private String lastName;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    private Role role;
-
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "password")
-    private String password;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return role.name();
-            }
-        });
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-}
+//package com.pet_projects.school_management_system.models;
+//
+//import jakarta.persistence.*;
+//import lombok.*;
+//import org.hibernate.annotations.NaturalId;
+//
+//import java.util.Collection;
+//
+//@Entity
+//@Getter
+//@Setter
+//@NoArgsConstructor
+//@Table(name = "users")
+//public class User {
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "user_id")
+//    private Long id;
+//
+//    @Column(name = "first_name")
+//    private String firstName;
+//
+//    @Column(name = "last_name")
+//    private String lastName;
+//
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+//    @Column(name = "role")
+//    private Collection<Role> roles;
+//
+//    @NaturalId(mutable = true)
+//    @Column(name = "email")
+//    private String email;
+//
+//    @Column(name = "password")
+//    private String password;
+//
+//    private boolean isEnabled = false;
+//
+//
+//    public User(String firstName, String lastName, String email,
+//                String password, Collection<Role> roles) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.password = password;
+//        this.roles = roles;
+//    }
+//}

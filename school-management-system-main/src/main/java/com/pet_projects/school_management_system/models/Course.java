@@ -1,51 +1,39 @@
 package com.pet_projects.school_management_system.models;
 
-import jakarta.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "courses")
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "course_id")
-    private int courseId;
+    private Long id;
 
-    @Column(name = "course_name")
-    private String courseName;
+    private String name;
 
-    @Column(name = "course_description")
-    private String courseDescription;
+    private String description;
 
-    public Course() {
-    }
+    private String teacher;
 
-    public Course(String courseName, String courseDescription) {
-        this.courseName = courseName;
-        this.courseDescription = courseDescription;
-    }
+//    private Integer numberOfStudents;
 
-    public int getCourseId() {
-        return courseId;
-    }
+    private String schedule;
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
+    private String time;
 
-    public String getCourseName() {
-        return courseName;
-    }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
 
-    public String getCourseDescription() {
-        return courseDescription;
-    }
 
-    public void setCourseDescription(String courseDescription) {
-        this.courseDescription = courseDescription;
-    }
+
 }

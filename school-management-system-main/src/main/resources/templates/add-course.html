@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Course</title>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+</head>
+<body>
+
+<p class = "role-and-name">[admin] FirstName LastName</p>
+
+<input type="button" value="log out" class="logout-button">
+
+<h1 class = "header">Add Course</h1>
+
+<div class = "left-menu">
+    <ul class = "left-menu-list">
+        <li class = "left-menu-element">courses</li>
+        <li class = "left-menu-element">students</li>
+        <li class = "left-menu-element">teachers</li>
+    </ul>
+</div>
+
+
+<div class="add-course-button">
+    <input type="button" value="back to courses" onclick = "window.location.href = '/courses'">
+</div>
+
+<!--Name
+Description
+Teacher
+Number of students
+Schedule
+Time
+Actions-->
+
+<form role="form" method="post" th:action="@{/courses/new}" th:object="${course}">
+
+    <label class = "welcome-screen-email">name</label>
+    <input
+            type="text"
+            name="name"
+            th:field="*{name}"
+            class="email-input">
+    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
+
+    <label class = "welcome-screen-password">description</label>
+    <input
+            type="text"
+            name="description"
+            th:field="*{description}"
+            class="password-input">
+
+    <label class="welcome-first-name">teacher</label>
+    <input
+            type="text"
+            name="teacher"
+            th:field="*{teacher}"
+            class="firstname-input">
+
+    <label class="welcome-last-name">schedule</label>
+    <input
+            type="text"
+            name="schedule"
+            th:field="*{schedule}"
+            class="lastname-input">
+
+    <label class="welcome-role">time</label>
+    <input
+            type="text"
+            name="time"
+            th:field="*{time}"
+            class="role-student-input">
+
+    <input
+            type="submit"
+            id=""
+            value="add/update course"
+            class="create-account-submit">
+
+
+
+</form>
+
+</body>
+</html>

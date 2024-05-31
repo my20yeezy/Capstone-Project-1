@@ -81,7 +81,7 @@ tr:hover {
 .welcome-screen-password {
     font-size: 20px;
     position: absolute;
-    left: 670px;
+    left: 630px;
     top: 250px;
 }
 
@@ -195,4 +195,12 @@ tr:hover {
     position: absolute;
     left: 740px;
     top: 550px;
+}
+
+.error {
+    font-size: 20px;
+    position: absolute;
+    left: 675px;
+    top: 100px;
+    color: red;
 }
