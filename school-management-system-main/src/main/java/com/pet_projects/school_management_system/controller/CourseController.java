@@ -66,19 +66,10 @@ public class CourseController {
         return "redirect:/courses";
     }
 
-
-
-
-    @GetMapping("/welcome")
-    public String welcomeScreen(Model model) {
-
-        return "welcome";
-    }
-
-    @GetMapping("/create-account")
-    public String createAccountScreen(Model model) {
-
-        return "create-account";
+    @GetMapping("/courses/{courseId}/delete")
+    public String deleteCourse(@PathVariable("courseId") Long courseId) {
+        courseService.deleteCourse(courseId);
+        return "redirect:/courses";
     }
 
 

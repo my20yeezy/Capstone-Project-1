@@ -45,6 +45,11 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.save(course);
     }
 
+    @Override
+    public void deleteCourse(Long courseId) {
+        courseRepository.deleteById(courseId);
+    }
+
     private Course mapToCourse(CourseDto courseDto) {
         Course course = Course.builder()
                 .id(courseDto.getId())

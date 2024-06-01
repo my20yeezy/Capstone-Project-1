@@ -13,6 +13,9 @@
     <input type="submit" value="log out" class="logout-button">
 </form>
 
+<div th:if="${param.success}" class="alert-success">
+    You are registered successfully!
+</div>
 
 <h1 class="header">Courses</h1>
 
@@ -31,7 +34,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Teacher</th>
-<!--            <th>Number of students</th>-->
+            <!--            <th>Number of students</th>-->
             <th>Schedule</th>
             <th>Time</th>
             <th>Actions</th>
@@ -42,13 +45,14 @@
             <td th:text="${course.name}"></td>
             <td th:text="${course.description}"></td>
             <td th:text="${course.teacher}"></td>
-<!--            <td th:text="${course.numberOfStudents}"></td>-->
+            <!--            <td th:text="${course.numberOfStudents}"></td>-->
             <td th:text="${course.schedule}"></td>
             <td th:text="${course.time}"></td>
             <td>
                 <a th:href="@{/courses/{courseId}/update(courseId=${course.id})}">Update</a>
 
-                <input type="button" value="delete" />
+                <a th:href="@{/courses/{courseId}/delete(courseId=${course.id})}">Delete</a>
+
             </td>
         </tr>
         </tbody>

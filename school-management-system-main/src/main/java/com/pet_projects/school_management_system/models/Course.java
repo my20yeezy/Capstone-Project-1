@@ -26,7 +26,9 @@ public class Course {
 
     private String teacher;
 
-//    private Integer numberOfStudents;
+    @Column(columnDefinition = "integer default 0")
+    private Integer numberOfStudents;
+    //todo set default value of 0
 
     private String schedule;
 

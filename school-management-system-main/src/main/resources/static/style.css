@@ -198,9 +198,17 @@ tr:hover {
 }
 
 .error {
-    font-size: 20px;
+    font-size: 16px;
     position: absolute;
     left: 675px;
     top: 100px;
     color: red;
+}
+
+.alert-success {
+    font-size: 16px;
+    position: absolute;
+    left: 675px;
+    top: 100px;
+    color: green;
 }
