@@ -1,0 +1,3 @@
+- Fix setting a role when registrating
+- Fix logging in
+- Display role, firstName and lastName of actually logged in user in top left corner of “courses” view
