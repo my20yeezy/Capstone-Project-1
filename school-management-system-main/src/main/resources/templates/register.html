@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Create account</title>
-    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 
@@ -34,7 +34,7 @@
             id="role-student"
             class="role-student-input"
             value="student"
-            th:field="*{role}">
+            th:field="*{roleString}">
     <label for="role-student" class="student-label">student</label>
 
     <input
@@ -42,7 +42,7 @@
             id="role-teacher"
             class="role-teacher-input"
             value="teacher"
-            th:field="*{role}">
+            th:field="*{roleString}">
     <label for="role-teacher" class="teacher-label">teacher</label>
 
     <label class="welcome-first-name">first name</label>
@@ -59,7 +59,7 @@
 
     <p th:if="${#fields.hasErrors('password')}" class="error"></p>
 
-    <button th:href="@{/register/save}" type="submit" class="create-account-submit">register</button>
+    <button type="submit" class="create-account-submit">register</button>
 
     <button th:href="@{/login}" type="submit" class="back-to-welcome-button">back to welcome page</button>
 

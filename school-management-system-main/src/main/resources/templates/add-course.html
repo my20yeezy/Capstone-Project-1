@@ -3,27 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Course</title>
-    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 
-<p class = "role-and-name">[admin] FirstName LastName</p>
+<p class="role-and-name">[<span th:text="${user.role}"></span>] <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
 
-<input type="button" value="log out" class="logout-button">
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="log out" class="logout-button">
+</form>
 
-<h1 class = "header">Add Course</h1>
+<h1 class="header">Add Course</h1>
 
-<div class = "left-menu">
-    <ul class = "left-menu-list">
-        <li class = "left-menu-element">courses</li>
-        <li class = "left-menu-element">students</li>
-        <li class = "left-menu-element">teachers</li>
+<div class="left-menu">
+    <ul class="left-menu-list">
+        <li class="left-menu-element">courses</li>
+        <li class="left-menu-element">students</li>
+        <li class="left-menu-element">teachers</li>
     </ul>
 </div>
 
 
 <div class="add-course-button">
-    <input type="button" value="back to courses" onclick = "window.location.href = '/courses'">
+    <input type="button" value="back to courses" onclick="window.location.href = '/courses'">
 </div>
 
 <!--Name
@@ -36,7 +38,7 @@ Actions-->
 
 <form role="form" method="post" th:action="@{/courses/new}" th:object="${course}">
 
-    <label class = "welcome-screen-email">name</label>
+    <label class="welcome-screen-email">name</label>
     <input
             type="text"
             name="name"
@@ -44,7 +46,7 @@ Actions-->
             class="email-input">
     <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></p>
 
-    <label class = "welcome-screen-password">description</label>
+    <label class="welcome-screen-password">description</label>
     <input
             type="text"
             name="description"
@@ -75,10 +77,8 @@ Actions-->
     <input
             type="submit"
             id=""
-            value="add/update course"
+            value="add course"
             class="create-account-submit">
-
-
 
 </form>
 

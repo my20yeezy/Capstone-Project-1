@@ -36,23 +36,36 @@ public class CourseController {
         this.securityUtil = securityUtil;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "login";
+    }
+
     @GetMapping("/courses")
     public String listCourses(Model model) {
         List<CourseDto> courses = courseService.findAllCourses();
-        User user = userService.findByEmail(securityUtil.getSessionUser().getEmail()); //todo check if it is working properly, fix logging in first
-//        User user = userService.findByEmail("teacher@fakemail.com"); //temporary
-
-        model.addAttribute("courses", courses);
-        model.addAttribute("user", user);
-
-        return "courses";
+        if (SecurityUtil.getSessionUser() == null) {
+            return "redirect:/";
+        } else {
+            User user = userService.findByEmail(SecurityUtil.getSessionUser().getEmail());
+            model.addAttribute("courses", courses);
+            model.addAttribute("user", user);
+            return "courses";
+        }
     }
 
     @GetMapping("/courses/new")
     public String addCourseForm(Model model) {
-        Course course = new Course();
-        model.addAttribute("course", course);
-        return "add-course";
+        if (SecurityUtil.getSessionUser() == null) {
+            return "redirect:/";
+        } else {
+            User user = userService.findByEmail(SecurityUtil.getSessionUser().getEmail());
+            model.addAttribute("user", user);
+            Course course = new Course();
+            model.addAttribute("course", course);
+            return "add-course";
+        }
+
     }
 
     @PostMapping("/courses/new")

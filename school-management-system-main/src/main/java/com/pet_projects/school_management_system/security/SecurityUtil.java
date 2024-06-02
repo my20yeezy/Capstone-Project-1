@@ -15,7 +15,7 @@ public class SecurityUtil {
     private static UserServiceImpl userService;
 
     public SecurityUtil(UserServiceImpl userService) {
-        this.userService = userService;
+        SecurityUtil.userService = userService;
     }
 
     public static User getSessionUser() {
@@ -23,8 +23,7 @@ public class SecurityUtil {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            User currentUser = userService.findByEmail(authentication.getName());
-            return currentUser;
+            return userService.findByEmail(authentication.getName());
         }
         return null;
     }

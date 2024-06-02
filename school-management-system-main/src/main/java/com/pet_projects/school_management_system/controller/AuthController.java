@@ -1,6 +1,7 @@
 package com.pet_projects.school_management_system.controller;
 
 import com.pet_projects.school_management_system.dto.RegistrationDto;
+import com.pet_projects.school_management_system.models.Role;
 import com.pet_projects.school_management_system.models.User;
 import com.pet_projects.school_management_system.service.UserService;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class AuthController {
 
     private UserService userService;
 
-    @GetMapping("/login")
+    @GetMapping({"/login", "login?error=true", "/"})
     public String loginPage() {
         return "login";
     }
@@ -38,7 +39,6 @@ public class AuthController {
             Model model) {
 
         User existingUser = userService.findByEmail(user.getEmail());
-
         if (existingUser != null || user.getEmail().isEmpty() || user.getEmail().isBlank()) {
             return "redirect:/register?fail";
         }
@@ -46,6 +46,8 @@ public class AuthController {
             model.addAttribute("user", user);
             return "register";
         }
+
+        Role role = user.getRole();
 
         userService.saveUser(user);
         return "redirect:/courses?success";

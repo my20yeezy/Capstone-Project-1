@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
-    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
 
@@ -36,12 +36,10 @@
 
         <button type="submit" value="Log in" class="login-button"> Log in</button>
 
-        <p class="create-account-or">or</p>
-        <button th:href="@{/register}" type="submit" class="create-account-button">create
-            account
-        </button>
-
     </form>
+
+        <p class="create-account-or">or</p>
+        <input type="button" value="create account" class="create-account-button" onclick="window.location.href = '/register'">
 
 </div>
 </body>

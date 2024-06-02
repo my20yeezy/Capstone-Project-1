@@ -33,15 +33,16 @@ public class SecurityConfig {
         http
 //                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/css/**")
-                .permitAll()
+                .antMatchers("/login", "/register", "/register/save", "/css/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/courses")
-                        .loginProcessingUrl("/login")
-                        .failureUrl("/login?error=true")
-                        .permitAll())
+                .formLogin(
+                        form -> form
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/courses")
+                                .loginProcessingUrl("/login")
+                                .failureUrl("/login?error=true")
+                                .permitAll())
                 .logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
