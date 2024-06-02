@@ -4,6 +4,7 @@ import com.pet_projects.school_management_system.dto.CourseDto;
 import com.pet_projects.school_management_system.dto.RegistrationDto;
 import com.pet_projects.school_management_system.models.Course;
 import com.pet_projects.school_management_system.models.User;
+import com.pet_projects.school_management_system.security.SecurityUtil;
 import com.pet_projects.school_management_system.service.CourseService;
 import com.pet_projects.school_management_system.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,19 @@ public class CourseController {
     @Autowired
     private UserServiceImpl userService;
 
+    private SecurityUtil securityUtil;
+
+    public CourseController(CourseService courseService, UserServiceImpl userService, SecurityUtil securityUtil) {
+        this.courseService = courseService;
+        this.userService = userService;
+        this.securityUtil = securityUtil;
+    }
+
     @GetMapping("/courses")
     public String listCourses(Model model) {
         List<CourseDto> courses = courseService.findAllCourses();
-        User user = userService.findByEmail("teacher@fakemail.com");
+        User user = userService.findByEmail(securityUtil.getSessionUser().getEmail()); //todo check if it is working properly, fix logging in first
+//        User user = userService.findByEmail("teacher@fakemail.com"); //temporary
 
         model.addAttribute("courses", courses);
         model.addAttribute("user", user);
