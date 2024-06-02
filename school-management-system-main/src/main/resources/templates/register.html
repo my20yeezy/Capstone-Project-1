@@ -9,60 +9,61 @@
 
 <h1 class="header">Please fill in the forms to create account</h1>
 
+<div th:if="${param.fail}" class="error">
+    Username or email already exists
+</div>
+
 <form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
 
     <label class="welcome-screen-email">email</label>
     <input
             type="email"
-            id="email"
             class="email-input"
             th:field="*{email}">
 
     <label class="welcome-screen-password">password</label>
     <input
             type="password"
-            id="password"
             class="password-input"
             th:field="*{password}">
+
+
+    <label class="welcome-role">role</label>
+    <input
+            type="radio"
+            id="role-student"
+            class="role-student-input"
+            value="student"
+            th:field="*{role}">
+    <label for="role-student" class="student-label">student</label>
+
+    <input
+            type="radio"
+            id="role-teacher"
+            class="role-teacher-input"
+            value="teacher"
+            th:field="*{role}">
+    <label for="role-teacher" class="teacher-label">teacher</label>
 
     <label class="welcome-first-name">first name</label>
     <input
             type="text"
-            id="firstName"
             class="firstname-input"
             th:field="*{firstName}">
 
     <label class="welcome-last-name">last name</label>
     <input
             type="text"
-            id="lastName"
             class="lastname-input"
             th:field="*{lastName}">
 
-<!--    <label class="welcome-role">role</label>-->
-<!--    <input-->
-<!--            type="radio"-->
-<!--            id="role-student"-->
-<!--            class="role-student-input"-->
-<!--            value="student"-->
-<!--            th:field="*{role}">-->
-<!--    <label for="role-student" class="student-label">student</label>-->
+    <p th:if="${#fields.hasErrors('password')}" class="error"></p>
 
-<!--    <input -->
-<!--            type="radio" -->
-<!--            id="role-teacher" -->
-<!--            class="role-teacher-input" -->
-<!--            value="teacher" -->
-<!--            th:field="*{role}">-->
-<!--    <label for="role-teacher" class="teacher-label">teacher</label>-->
-
-    <button th:href="@{/register}" type="submit" class="create-account-submit">register</button>
+    <button th:href="@{/register/save}" type="submit" class="create-account-submit">register</button>
 
     <button th:href="@{/login}" type="submit" class="back-to-welcome-button">back to welcome page</button>
 
-
 </form>
-
 
 </body>
 </html>

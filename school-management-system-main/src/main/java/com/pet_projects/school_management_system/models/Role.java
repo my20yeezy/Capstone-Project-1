@@ -20,8 +20,11 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "role")
     private List<User> users = new ArrayList<>();
 
-
+    @Override
+    public String toString() {
+        return name;
+    }
 }

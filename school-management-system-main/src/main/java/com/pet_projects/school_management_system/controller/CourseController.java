@@ -1,8 +1,11 @@
 package com.pet_projects.school_management_system.controller;
 
 import com.pet_projects.school_management_system.dto.CourseDto;
+import com.pet_projects.school_management_system.dto.RegistrationDto;
 import com.pet_projects.school_management_system.models.Course;
+import com.pet_projects.school_management_system.models.User;
 import com.pet_projects.school_management_system.service.CourseService;
+import com.pet_projects.school_management_system.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +24,17 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
+    @Autowired
+    private UserServiceImpl userService;
+
     @GetMapping("/courses")
     public String listCourses(Model model) {
         List<CourseDto> courses = courseService.findAllCourses();
+        User user = userService.findByEmail("teacher@fakemail.com");
+
         model.addAttribute("courses", courses);
+        model.addAttribute("user", user);
+
         return "courses";
     }
 
@@ -71,7 +81,5 @@ public class CourseController {
         courseService.deleteCourse(courseId);
         return "redirect:/courses";
     }
-
-
 
 }

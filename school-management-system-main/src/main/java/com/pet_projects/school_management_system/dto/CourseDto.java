@@ -4,6 +4,7 @@ package com.pet_projects.school_management_system.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 
 @Data
@@ -20,7 +21,8 @@ public class CourseDto {
 
     private String teacher;
 
-//    private Integer numberOfStudents;
+    @Column(columnDefinition = "integer default 0")
+    private Integer numberOfStudents = 0;
 
     private String schedule;
 

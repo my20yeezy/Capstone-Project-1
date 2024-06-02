@@ -56,7 +56,7 @@ public class CourseServiceImpl implements CourseService {
                 .name(courseDto.getName())
                 .description(courseDto.getDescription())
                 .teacher(courseDto.getTeacher())
-//                .numberOfStudents(courseDto.getNumberOfStudents())
+                .numberOfStudents(courseDto.getNumberOfStudents())
                 .schedule(courseDto.getSchedule())
                 .time(courseDto.getTime())
                 .build();
@@ -69,7 +69,7 @@ public class CourseServiceImpl implements CourseService {
                 .name(course.getName())
                 .description(course.getDescription())
                 .teacher(course.getTeacher())
-//                .numberOfStudents(course.getNumberOfStudents())
+                .numberOfStudents(course.getNumberOfStudents())
                 .schedule(course.getSchedule())
                 .time(course.getTime())
                 .build();

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<p class="role-and-name">[admin] FirstName LastName</p>
+<p class="role-and-name">[<span th:text="${user.role}"></span>] <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="log out" class="logout-button">
@@ -34,7 +34,7 @@
             <th>Name</th>
             <th>Description</th>
             <th>Teacher</th>
-            <!--            <th>Number of students</th>-->
+            <th>Number of students</th>
             <th>Schedule</th>
             <th>Time</th>
             <th>Actions</th>
@@ -45,14 +45,12 @@
             <td th:text="${course.name}"></td>
             <td th:text="${course.description}"></td>
             <td th:text="${course.teacher}"></td>
-            <!--            <td th:text="${course.numberOfStudents}"></td>-->
+            <td th:text="${course.numberOfStudents}"></td>
             <td th:text="${course.schedule}"></td>
             <td th:text="${course.time}"></td>
             <td>
                 <a th:href="@{/courses/{courseId}/update(courseId=${course.id})}">Update</a>
-
                 <a th:href="@{/courses/{courseId}/delete(courseId=${course.id})}">Delete</a>
-
             </td>
         </tr>
         </tbody>

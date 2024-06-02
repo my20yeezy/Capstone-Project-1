@@ -19,6 +19,11 @@ public class AuthController {
 
     private UserService userService;
 
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
     @GetMapping("/register")
     public String getRegisterForm(Model model) {
         RegistrationDto user = new RegistrationDto();
@@ -31,21 +36,19 @@ public class AuthController {
             @Valid @ModelAttribute("user") RegistrationDto user,
             BindingResult result,
             Model model) {
+
         User existingUser = userService.findByEmail(user.getEmail());
-        if (existingUser != null || user.getEmail().isEmpty()) {
+
+        if (existingUser != null || user.getEmail().isEmpty() || user.getEmail().isBlank()) {
             return "redirect:/register?fail";
         }
         if (result.hasErrors()) {
             model.addAttribute("user", user);
             return "register";
         }
+
         userService.saveUser(user);
         return "redirect:/courses?success";
-    }
-
-    @GetMapping("/login")
-    public String loginPage() {
-        return "login";
     }
 
 }
