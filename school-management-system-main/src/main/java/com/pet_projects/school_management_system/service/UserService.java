@@ -5,7 +5,8 @@ import com.pet_projects.school_management_system.models.User;
 
 public interface UserService {
 
-    void saveUser(RegistrationDto registrationDto);
+//    void saveUser(RegistrationDto registrationDto);
+    void saveUser(RegistrationDto userDto);
 
     User findByEmail(String email);
 

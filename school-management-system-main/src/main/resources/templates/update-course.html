@@ -15,7 +15,9 @@
 
 <div class="left-menu">
     <ul class="left-menu-list">
-        <li class="left-menu-element">courses</li>
+        <li class="left-menu-element">
+            <a th:href="@{/courses}">courses</a>
+        </li>
         <li class="left-menu-element">students</li>
         <li class="left-menu-element">teachers</li>
     </ul>
@@ -26,13 +28,6 @@
     <input type="button" value="back to courses" onclick="window.location.href = '/courses'">
 </div>
 
-<!--Name
-Description
-Teacher
-Number of students
-Schedule
-Time
-Actions-->
 <div>
     <form role="form" method="post" th:action="@{/courses/{courseId}/update(courseId=${course.id})}"
           th:object="${course}">

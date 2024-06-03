@@ -19,17 +19,18 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void saveUser(RegistrationDto registrationDto) {
+    public void saveUser(RegistrationDto userDto) {
 
         User user = new User();
 
-        user.setEmail(registrationDto.getEmail());
-        user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
-        user.setRole(roleRepository.findByName(registrationDto.getRole()));
-        user.setFirstName(registrationDto.getFirstName());
-        user.setLastName(registrationDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setRole(roleRepository.findByName(userDto.getRole()));
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
         userRepository.save(user);
     }
+
 
     @Override
     public User findByEmail(String email) {

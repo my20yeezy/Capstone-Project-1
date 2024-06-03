@@ -1,7 +1,6 @@
 package com.pet_projects.school_management_system.controller;
 
 import com.pet_projects.school_management_system.dto.CourseDto;
-import com.pet_projects.school_management_system.dto.RegistrationDto;
 import com.pet_projects.school_management_system.models.Course;
 import com.pet_projects.school_management_system.models.User;
 import com.pet_projects.school_management_system.security.SecurityUtil;
@@ -11,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class CourseController {
@@ -28,17 +25,9 @@ public class CourseController {
     @Autowired
     private UserServiceImpl userService;
 
-    private SecurityUtil securityUtil;
-
-    public CourseController(CourseService courseService, UserServiceImpl userService, SecurityUtil securityUtil) {
+    public CourseController(CourseService courseService, UserServiceImpl userService) {
         this.courseService = courseService;
         this.userService = userService;
-        this.securityUtil = securityUtil;
-    }
-
-    @GetMapping("/")
-    public String home() {
-        return "login";
     }
 
     @GetMapping("/courses")
@@ -65,7 +54,6 @@ public class CourseController {
             model.addAttribute("course", course);
             return "add-course";
         }
-
     }
 
     @PostMapping("/courses/new")
@@ -88,9 +76,11 @@ public class CourseController {
     }
 
     @PostMapping("/courses/{courseId}/update")
-    public String updateCourse(@PathVariable("courseId") Long courseId,
-                               @Valid @ModelAttribute("course") CourseDto course,
-                               BindingResult result) {
+    public String updateCourse(
+            @PathVariable("courseId") Long courseId,
+            @Valid @ModelAttribute("course") CourseDto course,
+            BindingResult result
+    ) {
         if (result.hasErrors()) {
             return "update-course";
         }
@@ -102,6 +92,29 @@ public class CourseController {
     @GetMapping("/courses/{courseId}/delete")
     public String deleteCourse(@PathVariable("courseId") Long courseId) {
         courseService.deleteCourse(courseId);
+        return "redirect:/courses";
+    }
+
+    @PostMapping("/courses/{courseId}/assign")
+    public String  assignTeacher(@PathVariable("courseId") Long courseId) {
+        User user = userService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionUser()).getEmail());
+
+        CourseDto courseDto = courseService.findCourseById(courseId);
+        Course course = courseService.mapToCourse(courseDto);
+
+        courseService.assignTeacher(course, user);
+        return "redirect:/courses";
+    }
+
+    @PostMapping("/courses/{courseId}/unassign")
+    public String unassignTeacher(@PathVariable("courseId") Long courseId) {
+        User user = userService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionUser()).getEmail());
+
+        CourseDto courseDto = courseService.findCourseById(courseId);
+        Course course = courseService.mapToCourse(courseDto);
+
+
+        courseService.unassignTeacher(course, user);
         return "redirect:/courses";
     }
 

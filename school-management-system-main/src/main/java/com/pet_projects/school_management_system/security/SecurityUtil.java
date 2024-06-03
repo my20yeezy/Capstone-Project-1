@@ -1,5 +1,6 @@
 package com.pet_projects.school_management_system.security;
 
+import com.pet_projects.school_management_system.dto.RegistrationDto;
 import com.pet_projects.school_management_system.models.User;
 import com.pet_projects.school_management_system.service.UserServiceImpl;
 import lombok.RequiredArgsConstructor;

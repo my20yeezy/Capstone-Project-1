@@ -3,10 +3,14 @@ package com.pet_projects.school_management_system.dto;
 
 import com.pet_projects.school_management_system.models.Role;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@Getter
+@Setter
 public class RegistrationDto {
 
     private Long id;

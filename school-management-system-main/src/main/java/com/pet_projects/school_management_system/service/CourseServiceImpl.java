@@ -2,6 +2,7 @@ package com.pet_projects.school_management_system.service;
 
 import com.pet_projects.school_management_system.dto.CourseDto;
 import com.pet_projects.school_management_system.models.Course;
+import com.pet_projects.school_management_system.models.User;
 import com.pet_projects.school_management_system.repository.CourseRepository;
 import com.pet_projects.school_management_system.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +28,9 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public List<CourseDto> findAllCourses() {
         List<Course> courses = courseRepository.findAll();
-        return courses.stream().map((course) -> mapToCourseDto(course)).collect(Collectors.toList());
+        return courses.stream().map(this::mapToCourseDto).collect(Collectors.toList());
     }
+
 
     @Override
     public Course saveCourse(CourseDto courseDto) {
@@ -53,7 +55,29 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.deleteById(courseId);
     }
 
-    private Course mapToCourse(CourseDto courseDto) {
+    @Override
+    @Transactional
+    public void assignTeacher(Course course, User user) {
+        if (user.getRole().getName().equals("TEACHER")) {
+            course.setTeacher(user.getFirstName() + " " + user.getLastName());
+            courseRepository.save(course);
+        }
+    }
+
+    @Override
+    public void unassignTeacher(Course course, User user) {
+        boolean UserIsTeacher = user.getRole().getName().equals("TEACHER");
+        User currentTeacherOfCourse = userRepository.findByEmail(course.???); // todo make many-to-many relationship between courses and users
+        boolean isCurrentTeacher = user.getEmail().equals()
+        if (user.getRole().getName().equals("TEACHER") ) {
+
+            course.setTeacher("");
+            courseRepository.save(course);
+        }
+    }
+
+    @Override
+    public Course mapToCourse(CourseDto courseDto) {
         Course course = Course.builder()
                 .id(courseDto.getId())
                 .name(courseDto.getName())
@@ -66,7 +90,7 @@ public class CourseServiceImpl implements CourseService {
         return course;
     }
 
-    private CourseDto mapToCourseDto(Course course) {
+    public CourseDto mapToCourseDto(Course course) {
         CourseDto courseDto = CourseDto.builder()
                 .id(course.getId())
                 .name(course.getName())
@@ -78,6 +102,5 @@ public class CourseServiceImpl implements CourseService {
                 .build();
         return courseDto;
     }
-
 
 }
