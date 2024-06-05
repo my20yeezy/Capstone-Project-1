@@ -67,8 +67,8 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void unassignTeacher(Course course, User user) {
         boolean UserIsTeacher = user.getRole().getName().equals("TEACHER");
-        User currentTeacherOfCourse = userRepository.findByEmail(course.???); // todo make many-to-many relationship between courses and users
-        boolean isCurrentTeacher = user.getEmail().equals()
+//        User currentTeacherOfCourse = userRepository.findByEmail(course.???); // todo make many-to-many relationship between courses and users
+//        boolean isCurrentTeacher = user.getEmail().equals()
         if (user.getRole().getName().equals("TEACHER") ) {
 
             course.setTeacher("");
