@@ -38,6 +38,9 @@ public class User {
 
     private String lastName;
 
+//    @ManyToMany
+//    private Course course;
+
     public User(String email, String password, Role role, String firstName, String lastName) {
         this.email = email;
         this.password = password;
