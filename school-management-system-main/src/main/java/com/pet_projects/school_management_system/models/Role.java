@@ -21,7 +21,10 @@ public class Role {
     private String name;
 
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "role")
-    private List<User> users = new ArrayList<>();
+    private List<Teacher> teachers = new ArrayList<>();
+
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, mappedBy = "role")
+    private List<Student> students = new ArrayList<>();
 
     public Role(String name) {
         this.name = name;

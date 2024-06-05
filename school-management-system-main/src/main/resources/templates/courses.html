@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<p class="role-and-name">[<span th:text="${user.role}"></span>] <span th:text="${user.firstName}"></span> <span
-        th:text="${user.lastName}"></span></p>
+<p class="role-and-name">[<span th:text="${someUser.role}"></span>] <span th:text="${someUser.firstName}"></span> <span
+        th:text="${someUser.lastName}"></span></p>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="log out" class="logout-button">
@@ -47,12 +47,12 @@
         <tr th:each="course: ${courses}">
             <td th:text="${course.name}"></td>
             <td th:text="${course.description}"></td>
-            <td th:text="${course.teacher}"></td>
+            <td th:text="${course.teacherString}"></td>
             <td th:text="${course.numberOfStudents}"></td>
             <td th:text="${course.schedule}"></td>
             <td th:text="${course.time}"></td>
             <td>
-                <div th:switch="${user.role.name}">
+                <div th:switch="${someUser.role.name}">
                     <span th:case="'ADMIN'">
                         <a th:href="@{/courses/{courseId}/update(courseId=${course.id})}">Update</a>
                         <a th:href="@{/courses/{courseId}/delete(courseId=${course.id})}">Delete</a>
@@ -61,7 +61,9 @@
                         <form th:action="@{/courses/{courseId}/assign(courseId=${course.id})}" method="post">
                             <input type="submit" value="Assign">
                         </form>
-                        <a>Unassign</a>
+                        <form th:action="@{/courses/{courseId}/unassign(courseId=${course.id})}" method="post">
+                            <input type="submit" value="Unassign">
+                        </form>
                     </span>
                     <span th:case="'STUDENT'">
                         <a>Enroll</a>

@@ -7,13 +7,13 @@
 </head>
 <body>
 
-<h1 class="header">Please fill in the forms to create account</h1>
+<h1 class="header">Please fill in the forms to create STUDENT account</h1>
 
 <div th:if="${param.fail}" class="error">
     Username or email already exists
 </div>
 
-<form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
+<form method="post" role="form" th:action="@{/register/save/student}" th:object="${student}">
 
     <label class="welcome-screen-email">email</label>
     <input
@@ -28,22 +28,22 @@
             th:field="*{password}">
 
 
-    <label class="welcome-role">role</label>
-    <input
-            type="radio"
-            id="role-student"
-            class="role-student-input"
-            value="STUDENT"
-            th:field="*{role}">
-    <label for="role-student" class="student-label">student</label>
+<!--    <label class="welcome-role">role</label>-->
+<!--    <input-->
+<!--            type="radio"-->
+<!--            id="role-student"-->
+<!--            class="role-student-input"-->
+<!--            value="STUDENT"-->
+<!--            th:field="*{role}">-->
+<!--    <label for="role-student" class="student-label">student</label>-->
 
-    <input
-            type="radio"
-            id="role-teacher"
-            class="role-teacher-input"
-            value="TEACHER"
-            th:field="*{role}">
-    <label for="role-teacher" class="teacher-label">teacher</label>
+<!--    <input-->
+<!--            type="radio"-->
+<!--            id="role-teacher"-->
+<!--            class="role-teacher-input"-->
+<!--            value="TEACHER"-->
+<!--            th:field="*{role}">-->
+<!--    <label for="role-teacher" class="teacher-label">teacher</label>-->
 
     <label class="welcome-first-name">first name</label>
     <input

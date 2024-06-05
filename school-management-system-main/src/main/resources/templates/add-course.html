@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<p class="role-and-name">[<span th:text="${user.role}"></span>] <span th:text="${user.firstName}"></span> <span th:text="${user.lastName}"></span></p>
+<p class="role-and-name">[<span th:text="${someUser.role}"></span>] <span th:text="${someUser.firstName}"></span> <span th:text="${someUser.lastName}"></span></p>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="log out" class="logout-button">
@@ -55,12 +55,12 @@ Actions-->
             th:field="*{description}"
             class="password-input">
 
-    <label class="welcome-first-name">teacher</label>
-    <input
-            type="text"
-            name="teacher"
-            th:field="*{teacher}"
-            class="firstname-input">
+<!--    <label class="welcome-first-name">teacher</label>-->
+<!--    <input-->
+<!--            type="text"-->
+<!--            name="teacher"-->
+<!--            th:field="*{teacher}"-->
+<!--            class="firstname-input">-->
 
     <label class="welcome-last-name">schedule</label>
     <input

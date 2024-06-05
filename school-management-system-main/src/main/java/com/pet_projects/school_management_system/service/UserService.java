@@ -1,13 +1,13 @@
 package com.pet_projects.school_management_system.service;
 
-import com.pet_projects.school_management_system.dto.RegistrationDto;
-import com.pet_projects.school_management_system.models.User;
+import com.pet_projects.school_management_system.dto.UserDto;
+import com.pet_projects.school_management_system.models.SomeUser;
 
 public interface UserService {
 
 //    void saveUser(RegistrationDto registrationDto);
-    void saveUser(RegistrationDto userDto);
+    void saveUser(UserDto userDto);
 
-    User findByEmail(String email);
+    SomeUser findByEmail(String email);
 
 }

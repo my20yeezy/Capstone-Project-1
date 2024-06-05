@@ -113,11 +113,17 @@ tr:hover {
     top: 450px;
 }
 
-.create-account-button {
+.create-account-button-1 {
     font-size: 20px;
     position: absolute;
     left: 770px;
-    top: 500px;
+    top: 900px;
+}
+.create-account-button-1 {
+    font-size: 20px;
+    position: absolute;
+    left: 770px;
+    top: 600px;
 }
 
 .welcome-first-name {

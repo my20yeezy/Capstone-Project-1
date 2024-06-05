@@ -1,11 +1,16 @@
 package com.pet_projects.school_management_system.controller;
 
 import com.pet_projects.school_management_system.dto.CourseDto;
+import com.pet_projects.school_management_system.mappers.CourseMapper;
 import com.pet_projects.school_management_system.models.Course;
-import com.pet_projects.school_management_system.models.User;
+import com.pet_projects.school_management_system.models.SomeUser;
+import com.pet_projects.school_management_system.models.Student;
+import com.pet_projects.school_management_system.models.Teacher;
 import com.pet_projects.school_management_system.security.SecurityUtil;
 import com.pet_projects.school_management_system.service.CourseService;
-import com.pet_projects.school_management_system.service.UserServiceImpl;
+import com.pet_projects.school_management_system.service.StudentService;
+import com.pet_projects.school_management_system.service.TeacherService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,39 +22,45 @@ import java.util.List;
 import java.util.Objects;
 
 @Controller
+@RequiredArgsConstructor
 public class CourseController {
 
     @Autowired
     private CourseService courseService;
 
-    @Autowired
-    private UserServiceImpl userService;
+    private final CourseMapper courseMapper;
 
-    public CourseController(CourseService courseService, UserServiceImpl userService) {
-        this.courseService = courseService;
-        this.userService = userService;
-    }
+    private final TeacherService teacherService;
+    private final StudentService studentService;
 
     @GetMapping("/courses")
     public String listCourses(Model model) {
-        List<CourseDto> courses = courseService.findAllCourses();
-        if (SecurityUtil.getSessionUser() == null) {
+        List<Course> courses = courseService.findAllCourses();
+        if (SecurityUtil.getSessionTeacher() == null && SecurityUtil.getSessionStudent() == null) {
             return "redirect:/";
         } else {
-            User user = userService.findByEmail(SecurityUtil.getSessionUser().getEmail());
+            Teacher teacher = teacherService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionTeacher().getEmail()));
+            Student student = studentService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionStudent()).getEmail());
             model.addAttribute("courses", courses);
-            model.addAttribute("user", user);
+            if(teacher != null) {
+                model.addAttribute("teacher", teacher);
+            }
+            if (student != null) {
+                model.addAttribute("student", student);
+            }
             return "courses";
         }
     }
 
     @GetMapping("/courses/new")
     public String addCourseForm(Model model) {
-        if (SecurityUtil.getSessionUser() == null) {
+        if (SecurityUtil.getSessionTeacher() == null && SecurityUtil.getSessionStudent() == null) {
             return "redirect:/";
         } else {
-            User user = userService.findByEmail(SecurityUtil.getSessionUser().getEmail());
-            model.addAttribute("user", user);
+            Teacher teacher = teacherService.findByEmail(SecurityUtil.getSessionTeacher().getEmail());
+            Student student = studentService.findByEmail(SecurityUtil.getSessionStudent().getEmail());
+            model.addAttribute("teacher", teacher);
+            model.addAttribute("student", student);
             Course course = new Course();
             model.addAttribute("course", course);
             return "add-course";
@@ -57,20 +68,20 @@ public class CourseController {
     }
 
     @PostMapping("/courses/new")
-    public String saveCourse(@Valid @ModelAttribute("course") CourseDto courseDto,
+    public String saveCourse(@Valid @ModelAttribute("course") Course course,
                              BindingResult result,
                              Model model) {
         if (result.hasErrors()) {
-            model.addAttribute("course", courseDto);
+            model.addAttribute("course", course);
             return "add-course";
         }
-        courseService.saveCourse(courseDto);
+        courseService.saveCourse(course);
         return "redirect:/courses";
     }
 
     @GetMapping("/courses/{courseId}/update")
     public String updateCourseForm(@PathVariable("courseId") long courseId, Model model) {
-        CourseDto course = courseService.findCourseById(courseId);
+        Course course = courseService.findCourseById(courseId);
         model.addAttribute("course", course);
         return "update-course";
     }
@@ -78,7 +89,7 @@ public class CourseController {
     @PostMapping("/courses/{courseId}/update")
     public String updateCourse(
             @PathVariable("courseId") Long courseId,
-            @Valid @ModelAttribute("course") CourseDto course,
+            @Valid @ModelAttribute("course") Course course,
             BindingResult result
     ) {
         if (result.hasErrors()) {
@@ -97,24 +108,17 @@ public class CourseController {
 
     @PostMapping("/courses/{courseId}/assign")
     public String  assignTeacher(@PathVariable("courseId") Long courseId) {
-        User user = userService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionUser()).getEmail());
-
-        CourseDto courseDto = courseService.findCourseById(courseId);
-        Course course = courseService.mapToCourse(courseDto);
-
-        courseService.assignTeacher(course, user);
+        Teacher teacher = teacherService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionTeacher()).getEmail());
+        Course course = courseService.findCourseById(courseId);
+        courseService.assignTeacher(course, teacher);
         return "redirect:/courses";
     }
 
     @PostMapping("/courses/{courseId}/unassign")
     public String unassignTeacher(@PathVariable("courseId") Long courseId) {
-        User user = userService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionUser()).getEmail());
-
-        CourseDto courseDto = courseService.findCourseById(courseId);
-        Course course = courseService.mapToCourse(courseDto);
-
-
-        courseService.unassignTeacher(course, user);
+        Teacher teacher = teacherService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionTeacher()).getEmail());
+        Course course = courseService.findCourseById(courseId);
+        courseService.unassignTeacher(course, teacher);
         return "redirect:/courses";
     }
 

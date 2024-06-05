@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,7 +26,11 @@ public class Course {
 
     private String description;
 
-    private String teacher;
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
+
+    private String teacherString;
 
     @Column(columnDefinition = "integer default 0")
     private Integer numberOfStudents = 0;
@@ -33,8 +39,8 @@ public class Course {
 
     private String time;
 
-
-
-
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
+            mappedBy = "enrolledCourses")
+    private List<Student> students = new ArrayList<>();
 
 }

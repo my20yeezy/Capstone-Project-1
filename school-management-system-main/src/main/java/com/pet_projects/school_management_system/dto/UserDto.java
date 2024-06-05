@@ -1,17 +1,17 @@
 package com.pet_projects.school_management_system.dto;
 
 
-import com.pet_projects.school_management_system.models.Role;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Data
 @Getter
 @Setter
-public class RegistrationDto {
+public class UserDto {
 
     private Long id;
 
@@ -27,5 +27,7 @@ public class RegistrationDto {
     private String firstName;
 
     private String lastName;
+
+    private List<String> courses;
 
 }
