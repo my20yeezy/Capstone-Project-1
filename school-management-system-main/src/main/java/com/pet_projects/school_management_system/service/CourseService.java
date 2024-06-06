@@ -3,6 +3,7 @@ package com.pet_projects.school_management_system.service;
 import com.pet_projects.school_management_system.dto.CourseDto;
 import com.pet_projects.school_management_system.models.Course;
 import com.pet_projects.school_management_system.models.SomeUser;
+import com.pet_projects.school_management_system.models.Student;
 import com.pet_projects.school_management_system.models.Teacher;
 
 import java.util.List;
@@ -26,4 +27,7 @@ public interface CourseService {
 
     public void unassignTeacher(Course course, Teacher teacher);
 
+    void enrollCourse(Course course, Student student);
+
+    void dropCourse(Course course, Student student);
 }

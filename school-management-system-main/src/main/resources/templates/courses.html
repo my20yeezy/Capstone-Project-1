@@ -7,8 +7,14 @@
 </head>
 <body>
 
-<p class="role-and-name">[<span th:text="${someUser.role}"></span>] <span th:text="${someUser.firstName}"></span> <span
-        th:text="${someUser.lastName}"></span></p>
+<div th:if="${teacher != null}">
+    <p class="role-and-name">[<span th:text="${teacher.role}"></span>] <span th:text="${teacher.firstName}"></span>
+        <span th:text="${teacher.lastName}"></span></p>
+</div>
+<div th:if="${student != null}">
+    <p class="role-and-name">[<span th:text="${student.role}"></span>] <span th:text="${student.firstName}"></span>
+        <span th:text="${student.lastName}"></span></p>
+</div>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="log out" class="logout-button">
@@ -52,23 +58,31 @@
             <td th:text="${course.schedule}"></td>
             <td th:text="${course.time}"></td>
             <td>
-                <div th:switch="${someUser.role.name}">
-                    <span th:case="'ADMIN'">
-                        <a th:href="@{/courses/{courseId}/update(courseId=${course.id})}">Update</a>
-                        <a th:href="@{/courses/{courseId}/delete(courseId=${course.id})}">Delete</a>
-                    </span>
-                    <span th:case="'TEACHER'">
-                        <form th:action="@{/courses/{courseId}/assign(courseId=${course.id})}" method="post">
-                            <input type="submit" value="Assign">
-                        </form>
-                        <form th:action="@{/courses/{courseId}/unassign(courseId=${course.id})}" method="post">
-                            <input type="submit" value="Unassign">
-                        </form>
-                    </span>
-                    <span th:case="'STUDENT'">
-                        <a>Enroll</a>
-                        <a>Drop</a>
-                    </span>
+                <div th:if="${teacher != null}">
+                    <div th:switch="${teacher.role.name}">
+                        <span th:case="'ADMIN'">
+                            <a th:href="@{/courses/{courseId}/update(courseId=${course.id})}">Update</a>
+                            <a th:href="@{/courses/{courseId}/delete(courseId=${course.id})}">Delete</a>
+                        </span>
+                        <span th:case="'TEACHER'">
+                            <form th:action="@{/courses/{courseId}/assign(courseId=${course.id})}" method="post">
+                                <input type="submit" value="Assign">
+                            </form>
+                            <form th:action="@{/courses/{courseId}/unassign(courseId=${course.id})}" method="post">
+                                <input type="submit" value="Unassign">
+                            </form>
+                        </span>
+                    </div>
+                </div>
+                <div th:if="${student != null}">
+                    <form th:action="@{/courses/{courseId}/enroll(courseId=${course.id})}"
+                          method="post">
+                        <input type="submit" value="Enroll">
+                    </form>
+                    <form th:action="@{/courses/{courseId}/drop(courseId=${course.id})}"
+                          method="post">
+                        <input type="submit" value="Drop">
+                    </form>
                 </div>
             </td>
         </tr>

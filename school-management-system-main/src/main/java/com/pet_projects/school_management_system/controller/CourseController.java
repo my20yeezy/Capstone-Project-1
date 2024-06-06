@@ -18,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,39 +30,44 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    private final CourseMapper courseMapper;
+//    private final CourseMapper courseMapper;
 
     private final TeacherService teacherService;
     private final StudentService studentService;
+    private final SecurityUtil securityUtil;
 
     @GetMapping("/courses")
     public String listCourses(Model model) {
         List<Course> courses = courseService.findAllCourses();
-        if (SecurityUtil.getSessionTeacher() == null && SecurityUtil.getSessionStudent() == null) {
+        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
             return "redirect:/";
         } else {
-            Teacher teacher = teacherService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionTeacher().getEmail()));
-            Student student = studentService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionStudent()).getEmail());
+            Teacher teacher = null;
+            Student student = null;
+            if (securityUtil.getSessionTeacher() != null) {
+                teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
+            }
+            if (securityUtil.getSessionStudent() != null) {
+                student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
+            }
+            courses.sort(Comparator.comparing(Course::getName));
             model.addAttribute("courses", courses);
-            if(teacher != null) {
-                model.addAttribute("teacher", teacher);
-            }
-            if (student != null) {
-                model.addAttribute("student", student);
-            }
-            return "courses";
+            model.addAttribute("teacher", teacher);
+            model.addAttribute("student", student);
         }
+        return "courses";
     }
+
 
     @GetMapping("/courses/new")
     public String addCourseForm(Model model) {
-        if (SecurityUtil.getSessionTeacher() == null && SecurityUtil.getSessionStudent() == null) {
+        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
             return "redirect:/";
         } else {
-            Teacher teacher = teacherService.findByEmail(SecurityUtil.getSessionTeacher().getEmail());
-            Student student = studentService.findByEmail(SecurityUtil.getSessionStudent().getEmail());
+            Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
+//            Student student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
             model.addAttribute("teacher", teacher);
-            model.addAttribute("student", student);
+//            model.addAttribute("student", student);
             Course course = new Course();
             model.addAttribute("course", course);
             return "add-course";
@@ -81,9 +88,13 @@ public class CourseController {
 
     @GetMapping("/courses/{courseId}/update")
     public String updateCourseForm(@PathVariable("courseId") long courseId, Model model) {
-        Course course = courseService.findCourseById(courseId);
-        model.addAttribute("course", course);
-        return "update-course";
+        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
+            return "redirect:/";
+        } else {
+            Course course = courseService.findCourseById(courseId);
+            model.addAttribute("course", course);
+            return "update-course";
+        }
     }
 
     @PostMapping("/courses/{courseId}/update")
@@ -102,24 +113,60 @@ public class CourseController {
 
     @GetMapping("/courses/{courseId}/delete")
     public String deleteCourse(@PathVariable("courseId") Long courseId) {
-        courseService.deleteCourse(courseId);
-        return "redirect:/courses";
+        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
+            return "redirect:/";
+        } else {
+            courseService.deleteCourse(courseId);
+            return "redirect:/courses";
+        }
     }
 
     @PostMapping("/courses/{courseId}/assign")
-    public String  assignTeacher(@PathVariable("courseId") Long courseId) {
-        Teacher teacher = teacherService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionTeacher()).getEmail());
-        Course course = courseService.findCourseById(courseId);
-        courseService.assignTeacher(course, teacher);
-        return "redirect:/courses";
+    public String assignTeacher(@PathVariable("courseId") Long courseId) {
+        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
+            return "redirect:/";
+        } else {
+            Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
+            Course course = courseService.findCourseById(courseId);
+            courseService.assignTeacher(course, teacher);
+            return "redirect:/courses";
+        }
     }
 
     @PostMapping("/courses/{courseId}/unassign")
     public String unassignTeacher(@PathVariable("courseId") Long courseId) {
-        Teacher teacher = teacherService.findByEmail(Objects.requireNonNull(SecurityUtil.getSessionTeacher()).getEmail());
-        Course course = courseService.findCourseById(courseId);
-        courseService.unassignTeacher(course, teacher);
-        return "redirect:/courses";
+        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
+            return "redirect:/";
+        } else {
+            Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
+            Course course = courseService.findCourseById(courseId);
+            courseService.unassignTeacher(course, teacher);
+            return "redirect:/courses";
+        }
+    }
+
+    @PostMapping("/courses/{courseId}/enroll")
+    public String enrollCourse(@PathVariable("courseId") Long courseId) {
+        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
+            return "redirect:/";
+        } else {
+            Student student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
+            Course course = courseService.findCourseById(courseId);
+            courseService.enrollCourse(course, student);
+            return "redirect:/courses";
+        }
+    }
+
+    @PostMapping("/courses/{courseId}/drop")
+    public String dropCourse(@PathVariable("courseId") Long courseId) {
+        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
+            return "redirect:/";
+        } else {
+            Student student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
+            Course course = courseService.findCourseById(courseId);
+            courseService.dropCourse(course, student);
+            return "redirect:/courses";
+        }
     }
 
 }

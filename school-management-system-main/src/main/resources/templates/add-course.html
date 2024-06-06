@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<p class="role-and-name">[<span th:text="${someUser.role}"></span>] <span th:text="${someUser.firstName}"></span> <span th:text="${someUser.lastName}"></span></p>
+<p class="role-and-name">[<span th:text="${teacher.role}"></span>] <span th:text="${teacher.firstName}"></span> <span th:text="${teacher.lastName}"></span></p>
 
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="log out" class="logout-button">

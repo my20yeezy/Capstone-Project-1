@@ -39,14 +39,16 @@
     </form>
 
     <p class="create-account-or">or</p>
-<!--    <form th:action="@{/register-teacher}" method="get">-->
-<!--        <input type="submit" value="create teacher account" class="create-account-button-1">-->
-<!--    </form>-->
-    <form th:action="@{/register-student}" method="get">
-        <input type="submit" value="create student account" class="create-account-button-2">
-    </form>
+
     <div class="create-account-button-1">
-        <input type="button" value="create teacher account" onclick="window.location.href = 'register-teacher'">
+        <form th:action="@{/register-teacher}" method="get">
+            <input type="submit" value="create teacher account">
+        </form>
+    </div>
+    <div class="create-account-button-2">
+        <form th:action="@{/register-student}" method="get">
+            <input type="submit" value="create student account">
+        </form>
     </div>
 
 

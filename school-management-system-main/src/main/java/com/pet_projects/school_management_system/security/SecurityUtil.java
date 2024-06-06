@@ -7,6 +7,7 @@ import com.pet_projects.school_management_system.service.StudentService;
 import com.pet_projects.school_management_system.service.StudentServiceImpl;
 import com.pet_projects.school_management_system.service.TeacherService;
 import com.pet_projects.school_management_system.service.TeacherServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,16 +15,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class SecurityUtil {
 
     @Autowired
-    private static TeacherService teacherService;
+    private final TeacherService teacherService;
 
     @Autowired
-    private static StudentService studentService;
+    private final StudentService studentService;
 
 
-    public static Teacher getSessionTeacher() {
+    public Teacher getSessionTeacher() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -33,7 +35,7 @@ public class SecurityUtil {
         return null;
     }
 
-    public static Student getSessionStudent() {
+    public Student getSessionStudent() {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

@@ -3,6 +3,7 @@ package com.pet_projects.school_management_system.service;
 import com.pet_projects.school_management_system.dto.CourseDto;
 import com.pet_projects.school_management_system.mappers.CourseMapper;
 import com.pet_projects.school_management_system.models.Course;
+import com.pet_projects.school_management_system.models.Student;
 import com.pet_projects.school_management_system.models.Teacher;
 import com.pet_projects.school_management_system.repository.CourseRepository;
 import com.pet_projects.school_management_system.repository.StudentRepository;
@@ -71,23 +72,54 @@ public class CourseServiceImpl implements CourseService {
     @Override
     @Transactional
     public void assignTeacher(Course course, Teacher teacher) {
-        if (course.getTeacherString().isEmpty() || course.getTeacherString().isBlank()) {
+        if (course.getTeacher() == null) {
             course.setTeacher(teacher);
+            course.setTeacherString(teacher.toString());
+            teacher.getAssignedCourses().add(course);
             courseRepository.save(course);
+            teacherRepository.save(teacher);
         }
     }
 
     @Override
     @Transactional
     public void unassignTeacher(Course course, Teacher teacher) {
-
-        Teacher currentTeacher = course.getTeacher();
-
-        if (teacher.getEmail().equals(currentTeacher.getEmail())) {
-            course.setTeacher(null);
-            courseRepository.save(course);
+        Teacher currentTeacher = null;
+        if (course.getTeacher() != null) {
+            currentTeacher = course.getTeacher();
+            if (teacher.getEmail().equals(currentTeacher.getEmail())) {
+                course.setTeacher(null);
+                course.setTeacherString(null);
+                teacher.getAssignedCourses().remove(course);
+                courseRepository.save(course);
+                teacherRepository.save(teacher);
+            }
         }
 
+    }
+
+    @Override
+    @Transactional
+    public void enrollCourse(Course course, Student student) {
+        if (!student.getEnrolledCourses().contains(course)) {
+            course.getStudents().add(student);
+            student.getEnrolledCourses().add(course);
+            course.setNumberOfStudents(course.getNumberOfStudents() + 1);
+            courseRepository.save(course);
+            studentRepository.save(student);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void dropCourse(Course course, Student student) {
+        if (student.getEnrolledCourses().contains(course)) {
+            course.getStudents().remove(student);
+            course.setNumberOfStudents(course.getNumberOfStudents() - 1);
+            student.getEnrolledCourses().remove(course);
+            courseRepository.save(course);
+            studentRepository.save(student);
+        }
     }
 
 }

@@ -7,7 +7,14 @@
 </head>
 <body>
 
-<p class="role-and-name">[admin] FirstName LastName</p>
+<div th:if="${teacher != null}">
+    <p class="role-and-name">[<span th:text="${teacher.role}"></span>] <span th:text="${teacher.firstName}"></span>
+        <span th:text="${teacher.lastName}"></span></p>
+</div>
+<div th:if="${student != null}">
+    <p class="role-and-name">[<span th:text="${student.role}"></span>] <span th:text="${student.firstName}"></span>
+        <span th:text="${student.lastName}"></span></p>
+</div>
 
 <input type="button" value="log out" class="logout-button">
 
@@ -50,12 +57,12 @@
                 th:field="*{description}"
                 class="password-input">
 
-        <label class="welcome-first-name">teacher</label>
-        <input
-                type="text"
-                name="teacher"
-                th:field="*{teacher}"
-                class="firstname-input">
+<!--        <label class="welcome-first-name">teacher</label>-->
+<!--        <input-->
+<!--                type="text"-->
+<!--                name="teacher"-->
+<!--                th:field="*{teacher}"-->
+<!--                class="firstname-input">-->
 
         <label class="welcome-last-name">schedule</label>
         <input

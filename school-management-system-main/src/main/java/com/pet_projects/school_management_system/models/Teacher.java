@@ -33,7 +33,7 @@ public class Teacher extends SomeUser {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    private String roleString = firstName + " " + lastName;
+    private String roleString;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}
     , mappedBy = "teacher")
