@@ -26,15 +26,15 @@
 
 <h1 class="header">Courses</h1>
 
-<div class="left-menu">
-    <ul class="left-menu-list">
-        <li class="left-menu-element">
-            <a th:href="@{/courses}">courses</a>
-        </li>
-        <li class="left-menu-element">students</li>
-        <li class="left-menu-element">teachers</li>
-    </ul>
-</div>
+<!--<div class="left-menu">-->
+<!--    <ul class="left-menu-list">-->
+<!--        <li class="left-menu-element">-->
+<!--            <a th:href="@{/courses}">courses</a>-->
+<!--        </li>-->
+<!--        <li class="left-menu-element">students</li>-->
+<!--        <li class="left-menu-element">teachers</li>-->
+<!--    </ul>-->
+<!--</div>-->
 
 <div>
     <table class="main-table">
@@ -46,6 +46,7 @@
             <th>Number of students</th>
             <th>Schedule</th>
             <th>Time</th>
+            <th>Status</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -58,38 +59,58 @@
             <td th:text="${course.schedule}"></td>
             <td th:text="${course.time}"></td>
             <td>
+                <div th:if="${student != null}">
+                    <span th:if="${#lists.contains(student.enrolledCourses, course)}">
+                        Enrolled
+                    </span>
+                </div>
+                <div th:if="${teacher != null}">
+                    <span th:if="${#lists.contains(teacher.assignedCourses, course)}">
+                        Assigned
+                    </span>
+                </div>
+            </td>
+            <td>
                 <div th:if="${teacher != null}">
                     <div th:switch="${teacher.role.name}">
                         <span th:case="'ADMIN'">
-                            <a th:href="@{/courses/{courseId}/update(courseId=${course.id})}">Update</a>
-                            <a th:href="@{/courses/{courseId}/delete(courseId=${course.id})}">Delete</a>
+                            <form th:action="@{/courses/{courseId}/update(courseId=${course.id})}" method="get">
+                                <input type="submit" value="Update">
+                            </form><form th:action="@{/courses/{courseId}/delete(courseId=${course.id})}" method="get">
+                                <input type="submit" value="Delete">
+                            </form>
                         </span>
                         <span th:case="'TEACHER'">
-                            <form th:action="@{/courses/{courseId}/assign(courseId=${course.id})}" method="post">
-                                <input type="submit" value="Assign">
-                            </form>
-                            <form th:action="@{/courses/{courseId}/unassign(courseId=${course.id})}" method="post">
-                                <input type="submit" value="Unassign">
-                            </form>
+                            <div th:if="${not #lists.contains(teacher.assignedCourses, course)}">
+                                <form th:action="@{/courses/{courseId}/assign(courseId=${course.id})}" method="post">
+                                    <input type="submit" value="Assign">
+                                </form>
+                            </div>
+                            <div th:if="${#lists.contains(teacher.assignedCourses, course)}">
+                                <form th:action="@{/courses/{courseId}/unassign(courseId=${course.id})}" method="post">
+                                    <input type="submit" value="Unassign">
+                                </form>
+                            </div>
                         </span>
                     </div>
                 </div>
                 <div th:if="${student != null}">
-                    <form th:action="@{/courses/{courseId}/enroll(courseId=${course.id})}"
-                          method="post">
-                        <input type="submit" value="Enroll">
-                    </form>
-                    <form th:action="@{/courses/{courseId}/drop(courseId=${course.id})}"
-                          method="post">
-                        <input type="submit" value="Drop">
-                    </form>
+                    <div th:if="${not #lists.contains(student.enrolledCourses, course)}">
+                        <form th:action="@{/courses/{courseId}/enroll(courseId=${course.id})}"
+                              method="post">
+                            <input type="submit" value="Enroll">
+                        </form>
+                    </div>
+                    <div th:if="${#lists.contains(student.enrolledCourses, course)}">
+                        <form th:action="@{/courses/{courseId}/drop(courseId=${course.id})}"
+                              method="post">
+                            <input type="submit" value="Drop">
+                        </form>
+                    </div>
                 </div>
             </td>
         </tr>
         </tbody>
-        <tr>
-
-        </tr>
 
     </table>
 </div>

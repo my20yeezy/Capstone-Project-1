@@ -40,7 +40,7 @@ public class CourseController {
     public String listCourses(Model model) {
         List<Course> courses = courseService.findAllCourses();
         if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
-            return "redirect:/";
+            return "redirect:/"; //todo maybe delete?
         } else {
             Teacher teacher = null;
             Student student = null;
@@ -69,7 +69,7 @@ public class CourseController {
             model.addAttribute("teacher", teacher);
 //            model.addAttribute("student", student);
             Course course = new Course();
-            model.addAttribute("course", course);
+            model.addAttribute("course", course); //todo only teachers should be able to get to this page
             return "add-course";
         }
     }
