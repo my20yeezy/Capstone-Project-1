@@ -1,5 +1,5 @@
 body {
-    background-image: url("bg-2.jpg");
+    background-image: url("bg-1.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -7,10 +7,14 @@ body {
     font-family: Helvetica, sans-serif;
 }
 
-.header {
-    text-align: center;
+.header-text {
     font-size: 36px;
     font-weight: bold;
+    position: absolute;
+    text-align: center;
+    left: 35%;
+    top: -10px;
+    color: white;
 }
 
 .left-menu {
@@ -41,7 +45,7 @@ body {
 
 th {
     height: 50px;
-    background-color: #f7c081;
+    background-color: #f59e5f;
     color: black;
 }
 
@@ -50,13 +54,14 @@ th, td {
 }
 
 tr:hover {
-    background-color: #fa9857;
+    background-color: #f7b483;
 }
 
 .role-and-name {
     position: absolute;
     left: 5px;
-    top: 5px;
+    top: -10px;
+    color: white;
 }
 
 .logout-button {
@@ -114,13 +119,13 @@ tr:hover {
 }
 
 .create-account-button-1 {
-    font-size: 20px;
+    font-size: 24px;
     position: absolute;
     left: 770px;
     top: 500px;
 }
 .create-account-button-2 {
-    font-size: 20px;
+    font-size: 24px;
     position: absolute;
     left: 770px;
     top: 535px;
@@ -221,4 +226,66 @@ tr:hover {
 
 td {
     text-align: center;
+}
+
+
+nav {
+  margin: 27px auto 0;
+
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  width: 590px;
+  height: 30px;
+  border-radius: 8px;
+  font-size: 0;
+}
+nav a {
+  line-height: 35px;
+  height: 100%;
+  font-size: 15px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+}
+nav a:hover {
+    background-color: #f7b483;
+    color: black;
+}
+
+nav .animation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: 0;
+  transition: all .5s ease 0s;
+  border-radius: 8px;
+}
+
+a:nth-child(1) {
+  width: 100px;
+}
+a:nth-child(2) {
+  width: 100px;
+}
+a:nth-child(3) {
+  width: 100px;
+}
+a:nth-child(4) {
+  width: 100px;
+}
+a:nth-child(5) {
+  width: 100px;
+}
+
+
+
+header {
+  position: absolute;
+  width: 100%;
+  height: 75px;
+  background-color: #5aaee6;
 }

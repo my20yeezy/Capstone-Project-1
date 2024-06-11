@@ -13,8 +13,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
+import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -36,6 +37,16 @@ public class CourseServiceTest {
     public void testFindAllCourses() {
         courseService.findAllCourses();
         verify(courseRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void testFindAllCoursesIntegration() {
+        List<Course> courses = new ArrayList<>();
+        courses.add(new Course());
+        when(courseRepository.findAll()).thenReturn(courses);
+
+        List<Course> result = courseService.findAllCourses();
+        assertEquals(courses.size(), result.size());
     }
 
     @Test
@@ -105,7 +116,7 @@ public class CourseServiceTest {
         courseService.enrollCourse(course, student);
         verify(courseRepository, times(1)).save(course);
         verify(studentRepository, times(1)).save(student);
-        Assertions.assertEquals(1, course.getNumberOfStudents());
+        assertEquals(1, course.getNumberOfStudents());
     }
 
     @Test

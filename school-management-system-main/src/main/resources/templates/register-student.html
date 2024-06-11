@@ -7,7 +7,18 @@
 </head>
 <body>
 
-<h1 class="header">Please fill in the forms to create STUDENT account</h1>
+<header>
+
+    <h1 class="header-text">Creating STUDENT account</h1>
+
+    <nav>
+        <a th:href="@{/courses}">courses</a>
+        <a href="#">teachers</a>
+        <a href="#">students</a>
+        <a th:href="@{courses/new}" th:if="${teacher != null}">add course</a>
+        <a th:href="@{/logout}">log out</a>
+    </nav>
+</header>
 
 <div th:if="${param.fail}" class="error">
     Username or email already exists
@@ -27,23 +38,6 @@
             class="password-input"
             th:field="*{password}">
 
-
-<!--    <label class="welcome-role">role</label>-->
-<!--    <input-->
-<!--            type="radio"-->
-<!--            id="role-student"-->
-<!--            class="role-student-input"-->
-<!--            value="STUDENT"-->
-<!--            th:field="*{role}">-->
-<!--    <label for="role-student" class="student-label">student</label>-->
-
-<!--    <input-->
-<!--            type="radio"-->
-<!--            id="role-teacher"-->
-<!--            class="role-teacher-input"-->
-<!--            value="TEACHER"-->
-<!--            th:field="*{role}">-->
-<!--    <label for="role-teacher" class="teacher-label">teacher</label>-->
 
     <label class="welcome-first-name">first name</label>
     <input
