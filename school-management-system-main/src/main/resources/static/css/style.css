@@ -1,8 +1,10 @@
 body {
-    background-image: url("bg-1.jpg");
+    background-image: url('bg-2.jpg');
+    background-color: ivory;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    background-position: center center;
 
     font-family: Helvetica, sans-serif;
 }
@@ -45,7 +47,7 @@ body {
 
 th {
     height: 50px;
-    background-color: #f59e5f;
+    background-color: darkseagreen;
     color: black;
 }
 
@@ -54,7 +56,7 @@ th, td {
 }
 
 tr:hover {
-    background-color: #f7b483;
+    background-color: coral;
 }
 
 .role-and-name {
@@ -252,7 +254,7 @@ nav a {
   color: white;
 }
 nav a:hover {
-    background-color: #f7b483;
+    background-color: coral;
     color: black;
 }
 
@@ -287,5 +289,5 @@ header {
   position: absolute;
   width: 100%;
   height: 75px;
-  background-color: #5aaee6;
+  background-color: teal;
 }
