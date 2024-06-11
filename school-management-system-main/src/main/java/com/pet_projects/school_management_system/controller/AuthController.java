@@ -1,15 +1,10 @@
 package com.pet_projects.school_management_system.controller;
 
-import com.pet_projects.school_management_system.models.SomeUser;
 import com.pet_projects.school_management_system.models.Student;
 import com.pet_projects.school_management_system.models.Teacher;
-import com.pet_projects.school_management_system.service.RoleService;
 import com.pet_projects.school_management_system.service.StudentService;
 import com.pet_projects.school_management_system.service.TeacherService;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,10 +20,6 @@ public class AuthController {
 
     private TeacherService teacherService;
     private StudentService studentService;
-    private RoleService roleService;
-
-//    @Autowired
-    private UserDetailsService userDetailsService;
 
     @GetMapping({"/login", "login?error=true", "/"})
     public String loginPage() {
