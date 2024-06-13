@@ -8,7 +8,6 @@ import com.pet_projects.school_management_system.service.CourseService;
 import com.pet_projects.school_management_system.service.StudentService;
 import com.pet_projects.school_management_system.service.TeacherService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -48,7 +47,6 @@ public class CourseController {
         }
         return "courses";
     }
-
 
     @GetMapping("/courses/new")
     public String addCourseForm(Model model) {
@@ -156,6 +154,61 @@ public class CourseController {
             courseService.dropCourse(course, student);
             return "redirect:/courses";
         }
+    }
+
+    @GetMapping("/courses/{courseId}/details")
+    public String courseDetailsForm(@PathVariable("courseId") long courseId, Model model) {
+        Course course = courseService.findCourseById(courseId);
+        Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
+        List<Student> students = courseService.findCourseById(courseId).getStudents();
+        model.addAttribute("course", course);
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("students", students);
+        return "course-details";
+    }
+
+    @PostMapping("/courses/{courseId}/drop/{studentId}")
+    public String dropStudent(@PathVariable("courseId") Long courseId, @PathVariable("studentId") Long studentId) {
+        Student student = studentService.findById(studentId);
+        Course course = courseService.findCourseById(courseId);
+        courseService.dropCourse(course, student);
+        return "redirect:/courses/{courseId}/details";
+    }
+
+    @GetMapping("/teachers")
+    public String listTeachers(Model model) {
+        List<Teacher> teachers = teacherService.findAllTeachers();
+        Teacher teacher = null;
+        Student student = null;
+        if (securityUtil.getSessionTeacher() != null) {
+            teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
+        }
+        if (securityUtil.getSessionStudent() != null) {
+            student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
+        }
+        teachers.sort(Comparator.comparing(Teacher::getLastName));
+        model.addAttribute("teachers", teachers);
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("student", student);
+        return "teachers";
+    }
+
+    @GetMapping("/students")
+    public String listStudents(Model model) {
+        List<Student> students = studentService.findAllStudents();
+        Teacher teacher = null;
+        Student student = null;
+        if (securityUtil.getSessionTeacher() != null) {
+            teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
+        }
+        if (securityUtil.getSessionStudent() != null) {
+            student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
+        }
+        students.sort(Comparator.comparing(Student::getLastName));
+        model.addAttribute("students", students);
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("student", student);
+        return "students";
     }
 
 }

@@ -43,4 +43,8 @@ public class Course {
             mappedBy = "enrolledCourses")
     private List<Student> students = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -28,7 +28,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course saveCourse(Course course) {
-//        Course course = mapper.mapToCourse(course);
         return courseRepository.save(course);
     }
 

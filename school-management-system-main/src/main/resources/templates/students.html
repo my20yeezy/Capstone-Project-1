@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Courses</title>
+    <title>Students</title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
 </head>
 <body>
@@ -18,7 +18,7 @@
             <span th:text="${student.lastName}"></span></p>
     </div>
 
-    <h1 class="header-text">Course details</h1>
+    <h1 class="header-text">Students</h1>
 
     <nav>
         <a th:href="@{/courses}">courses</a>
@@ -30,35 +30,15 @@
 
 </header>
 
-<span class="course-name">
-    <span class="course-attribute">Name:</span> <span th:text="${course.name}"></span>
-</span>
-<span class="course-description">
-    <span class="course-attribute">Description:</span> <span th:text="${course.description}"></span>
-</span>
-<span class="course-teacher">
-    <span class="course-attribute">Teacher:</span> <span th:text="${course.teacher}"></span>
-</span>
-<span class="course-schedule">
-    <span class="course-attribute">Schedule:</span> <span th:text="${course.schedule}"></span>
-</span>
-<span class="course-time">
-    <span class="course-attribute">Time:</span> <span th:text="${course.time}"></span>
-</span>
-<span class="course-students">
-    <span class="course-attribute">Students:</span>
-</span>
-
-
 <div>
-    <table class="students-table">
+    <table class="main-table">
         <thead>
         <tr>
             <th>#</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>Actions</th>
+            <th>Enrolled Courses</th>
         </tr>
         </thead>
         <tbody>
@@ -67,17 +47,12 @@
             <td th:text="${student.firstName}"></td>
             <td th:text="${student.lastName}"></td>
             <td th:text="${student.email}"></td>
-            <td>
-                <form th:action="@{/courses/{courseId}/drop/{studentId}(courseId=${course.id}, studentId=${student.id})}" method="post">
-                    <input type="submit" value="Drop">
-                </form>
-            </td>
+            <td th:text="${student.enrolledCourses}"></td>
         </tr>
         </tbody>
 
     </table>
 </div>
-
 
 </body>
 </html>

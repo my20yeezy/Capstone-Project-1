@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header>
+
+    <div th:if="${teacher != null}">
+        <p class="role-and-name">[<span th:text="${teacher.role}"></span>] <span th:text="${teacher.firstName}"></span>
+            <span th:text="${teacher.lastName}"></span></p>
+    </div>
+    <div th:if="${student != null}">
+        <p class="role-and-name">[<span th:text="${student.role}"></span>] <span th:text="${student.firstName}"></span>
+            <span th:text="${student.lastName}"></span></p>
+    </div>
+
+    <h1 class="header-text">Teachers</h1>
+
+    <nav>
+        <a th:href="@{/courses}">courses</a>
+        <a th:href="@{/teachers}">teachers</a>
+        <a th:href="@{/students}">students</a>
+        <a th:href="@{courses/new}" th:if="${teacher != null}">add course</a>
+        <a th:href="@{/logout}">log out</a>
+    </nav>
+
+</header>
+
+<div>
+    <table class="main-table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Assigned Courses</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher, stat: ${teachers}">
+            <td th:text="${stat.count}"></td>
+            <td th:text="${teacher.firstName}"></td>
+            <td th:text="${teacher.lastName}"></td>
+            <td th:text="${teacher.email}"></td>
+            <td th:text="${teacher.assignedCourses}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>

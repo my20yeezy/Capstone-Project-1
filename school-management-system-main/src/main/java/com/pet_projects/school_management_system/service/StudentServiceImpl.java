@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
@@ -35,5 +37,15 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student findByEmail(String email) {
         return studentRepository.findByEmail(email);
+    }
+
+    @Override
+    public Student findById(Long id) {
+        return studentRepository.findById(id).get();
+    }
+
+    @Override
+    public List<Student> findAllStudents() {
+        return studentRepository.findAll();
     }
 }

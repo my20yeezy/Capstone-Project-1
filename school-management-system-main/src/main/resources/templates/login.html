@@ -13,8 +13,8 @@
 
     <nav>
         <a th:href="@{/courses}">courses</a>
-        <a href="#">teachers</a>
-        <a href="#">students</a>
+        <a th:href="@{/teachers}">teachers</a>
+        <a th:href="@{/students}">students</a>
         <a th:href="@{courses/new}" th:if="${teacher != null}">add course</a>
         <a th:href="@{/logout}">log out</a>
     </nav>
