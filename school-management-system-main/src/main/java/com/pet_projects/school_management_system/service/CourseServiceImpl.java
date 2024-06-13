@@ -37,11 +37,25 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    @Transactional
     public void updateCourse(Course course) {
-        courseRepository.save(course);
+        Course existingCourse = courseRepository.findById(course.getId()).get();
+        existingCourse.setName(course.getName());
+        existingCourse.setDescription(course.getDescription());
+
+        existingCourse.setTeacherString(course.getTeacherString());
+
+        existingCourse.setSchedule(course.getSchedule());
+        existingCourse.setTime(course.getTime());
+
+        existingCourse.setTeacher(course.getTeacher());
+
+        existingCourse.setStudents(course.getStudents());
+        courseRepository.save(existingCourse);
     }
 
     @Override
+    @Transactional
     public void deleteCourse(Long courseId) {
         courseRepository.deleteById(courseId);
     }
@@ -91,10 +105,13 @@ public class CourseServiceImpl implements CourseService {
     public void dropCourse(Course course, Student student) {
         if (student.getEnrolledCourses().contains(course)) {
             course.getStudents().remove(student);
-            course.setNumberOfStudents(course.getNumberOfStudents() - 1);
+            if (course.getNumberOfStudents() > 0) {
+                course.setNumberOfStudents(course.getNumberOfStudents() - 1);
+            }
             student.getEnrolledCourses().remove(course);
             courseRepository.save(course);
             studentRepository.save(student);
         }
     }
+
 }

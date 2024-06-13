@@ -26,14 +26,11 @@ public class Course {
 
     private String description;
 
-    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     private String teacherString;
-
-    @Column(columnDefinition = "integer default 0")
-    private Integer numberOfStudents = 0;
 
     private String schedule;
 
@@ -43,8 +40,12 @@ public class Course {
             mappedBy = "enrolledCourses")
     private List<Student> students = new ArrayList<>();
 
+    @Column(columnDefinition = "integer default 0")
+    private Integer numberOfStudents = 0;
+
     @Override
     public String toString() {
         return name;
     }
+
 }

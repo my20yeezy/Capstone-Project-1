@@ -1,12 +1,9 @@
 package com.pet_projects.school_management_system.security;
 
-import com.pet_projects.school_management_system.models.SomeUser;
 import com.pet_projects.school_management_system.models.Student;
 import com.pet_projects.school_management_system.models.Teacher;
 import com.pet_projects.school_management_system.service.StudentService;
-import com.pet_projects.school_management_system.service.StudentServiceImpl;
 import com.pet_projects.school_management_system.service.TeacherService;
-import com.pet_projects.school_management_system.service.TeacherServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -44,4 +41,5 @@ public class SecurityUtil {
         }
         return null;
     }
+
 }

@@ -54,9 +54,7 @@ public class AuthController {
             model.addAttribute("teacher", teacher);
             return "register";
         }
-
         teacherService.saveTeacher(teacher);
-
         return "redirect:/login";
     }
 
@@ -65,7 +63,6 @@ public class AuthController {
             @Valid @ModelAttribute("student") Student student,
             BindingResult result,
             Model model) {
-
         Student existingStudent = studentService.findByEmail(student.getEmail());
         if (existingStudent != null || student.getEmail().isEmpty() || student.getEmail().isBlank()) {
             return "redirect:/register?fail";
@@ -74,9 +71,7 @@ public class AuthController {
             model.addAttribute("student", student);
             return "register";
         }
-
         studentService.saveStudent(student);
-
         return "redirect:/login";
     }
 

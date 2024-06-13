@@ -18,11 +18,12 @@ public interface CourseService {
 
     void deleteCourse(Long courseId);
 
-    public void assignTeacher(Course course, Teacher teacher);
+    void assignTeacher(Course course, Teacher teacher);
 
-    public void unassignTeacher(Course course, Teacher teacher);
+    void unassignTeacher(Course course, Teacher teacher);
 
     void enrollCourse(Course course, Student student);
 
     void dropCourse(Course course, Student student);
+
 }

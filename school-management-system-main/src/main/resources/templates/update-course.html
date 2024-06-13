@@ -7,7 +7,6 @@
 </head>
 <body>
 
-
 <header>
 
     <div th:if="${teacher != null}">
@@ -32,8 +31,6 @@
 
 </header>
 
-
-
 <div>
     <form role="form" method="post" th:action="@{/courses/{courseId}/update(courseId=${course.id})}"
           th:object="${course}">
@@ -56,13 +53,6 @@
                 th:field="*{description}"
                 class="password-input">
 
-<!--        <label class="welcome-first-name">teacher</label>-->
-<!--        <input-->
-<!--                type="text"-->
-<!--                name="teacher"-->
-<!--                th:field="*{teacher}"-->
-<!--                class="firstname-input">-->
-
         <label class="welcome-last-name">schedule</label>
         <input
                 type="text"
@@ -82,8 +72,6 @@
                 id=""
                 value="update course"
                 class="create-account-submit">
-
-        <!--    <button type="submit" class="btn btn-primary" >update course</button>-->
 
     </form>
 </div>

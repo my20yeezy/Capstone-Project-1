@@ -24,7 +24,7 @@
         <a th:href="@{/courses}">courses</a>
         <a th:href="@{/teachers}">teachers</a>
         <a th:href="@{/students}">students</a>
-        <a th:href="@{courses/new}" th:if="${teacher != null}">add course</a>
+        <a th:href="@{/courses/new}" th:if="${teacher != null}">add course</a>
         <a th:href="@{/logout}">log out</a>
     </nav>
 
@@ -71,27 +71,27 @@
                     <div th:switch="${teacher.role.name}">
                         <span th:case="'ADMIN'">
                             <form th:action="@{/courses/{courseId}/update(courseId=${course.id})}" method="get">
-                                <input type="submit" value="Update">
+                                <input type="submit" value="Update" class="niceButton">
                             </form>
                             <form th:action="@{/courses/{courseId}/delete(courseId=${course.id})}" method="get">
-                                <input type="submit" value="Delete">
+                                <input type="submit" value="Delete" class="niceButton">
                             </form>
                         </span>
                         <span th:case="'TEACHER'">
                             <div th:if="${not #lists.contains(teacher.assignedCourses, course) and course.teacher == null}">
                                 <form th:action="@{/courses/{courseId}/assign(courseId=${course.id})}" method="post">
-                                    <input type="submit" value="Assign">
+                                    <input type="submit" value="Assign" class="niceButton">
                                 </form>
                             </div>
                             <div th:if="${#lists.contains(teacher.assignedCourses, course)}">
                                 <form th:action="@{/courses/{courseId}/update(courseId=${course.id})}" method="get">
-                                    <input type="submit" value="Update">
+                                    <input type="submit" value="Update" class="niceButton">
                                 </form>
                                 <form th:action="@{/courses/{courseId}/unassign(courseId=${course.id})}" method="post">
-                                    <input type="submit" value="Unassign">
+                                    <input type="submit" value="Unassign" class="niceButton">
                                 </form>
                                 <form th:action="@{/courses/{courseId}/details(courseId=${course.id})}" method="get">
-                                    <input type="submit" value="Details">
+                                    <input type="submit" value="Details" class="niceButton">
                                 </form>
                             </div>
                         </span>
@@ -101,13 +101,13 @@
                     <div th:if="${not #lists.contains(student.enrolledCourses, course)}">
                         <form th:action="@{/courses/{courseId}/enroll(courseId=${course.id})}"
                               method="post">
-                            <input type="submit" value="Enroll">
+                            <input type="submit" value="Enroll" class="niceButton">
                         </form>
                     </div>
                     <div th:if="${#lists.contains(student.enrolledCourses, course)}">
                         <form th:action="@{/courses/{courseId}/drop(courseId=${course.id})}"
                               method="post">
-                            <input type="submit" value="Drop">
+                            <input type="submit" value="Drop" class="niceButton">
                         </form>
                     </div>
                 </div>
@@ -117,7 +117,6 @@
 
     </table>
 </div>
-
 
 </body>
 </html>

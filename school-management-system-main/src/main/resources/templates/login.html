@@ -45,20 +45,20 @@
                 name="password"
                 class="password-input">
 
-        <button type="submit" value="Log in" class="login-button"> Log in</button>
+        <button type="submit" value="log in" class="login-button"> log in</button>
 
     </form>
 
-    <p class="create-account-or">or</p>
+    <p class="create-account-or">or create:</p>
 
-    <div class="create-account-button-1">
+    <div >
         <form th:action="@{/register-teacher}" method="get">
-            <input type="submit" value="create teacher account">
+            <button type="submit" value="create teacher account" class="create-account-button-1">teacher account</button>
         </form>
     </div>
-    <div class="create-account-button-2">
+    <div >
         <form th:action="@{/register-student}" method="get">
-            <input type="submit" value="create student account">
+            <button type="submit" value="create student account" class="create-account-button-2">student account</button>
         </form>
     </div>
 

@@ -54,7 +54,7 @@ th, td {
 }
 
 tr:hover {
-    background-color: coral;
+    background-color: moccasin;
 }
 
 .role-and-name {
@@ -109,26 +109,46 @@ tr:hover {
     position: absolute;
     left: 815px;
     top: 300px;
+    background-color: teal;
+    color: white;
+}
+
+.login-button:hover {
+    background-color: coral;
+    color: black;
 }
 
 .create-account-or {
     font-size: 20px;
     position: absolute;
-    left: 830px;
+    left: 810px;
     top: 450px;
 }
 
 .create-account-button-1 {
-    font-size: 24px;
+    font-size: 18px;
     position: absolute;
-    left: 770px;
+    left: 780px;
     top: 500px;
+    background-color: teal;
+    color: white;
 }
+.create-account-button-1:hover {
+    background-color: coral;
+    color: black;
+}
+
 .create-account-button-2 {
-    font-size: 24px;
+    font-size: 18px;
     position: absolute;
-    left: 770px;
+    left: 780px;
     top: 535px;
+    background-color: teal;
+    color: white;
+}
+.create-account-button-2:hover {
+    background-color: coral;
+    color: black;
 }
 
 .welcome-first-name {
@@ -197,8 +217,14 @@ tr:hover {
 .create-account-submit {
     font-size: 20px;
     position: absolute;
-    left: 770px;
+    left: 755px;
     top: 500px;
+    background-color: teal;
+    color: white;
+}
+.create-account-submit:hover {
+    background-color: coral;
+    color: black;
 }
 
 .back-to-welcome-button {
@@ -206,12 +232,18 @@ tr:hover {
     position: absolute;
     left: 740px;
     top: 550px;
+    background-color: teal;
+    color: white;
+}
+.back-to-welcome-button:hover {
+    background-color: coral;
+    color: black;
 }
 
 .error {
     font-size: 16px;
     position: absolute;
-    left: 675px;
+    left: 730px;
     top: 100px;
     color: red;
 }
@@ -340,4 +372,15 @@ header {
 .course-attribute {
     font-size: 24px;
     font-weight: bold;
+}
+
+.niceButton {
+    font-size: 14px;
+    background-color: teal;
+    color: white;
+}
+
+.niceButton:hover {
+    background-color: coral;
+    color: black;
 }

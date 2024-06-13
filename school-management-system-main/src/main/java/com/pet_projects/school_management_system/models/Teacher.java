@@ -43,4 +43,5 @@ public class Teacher extends SomeUser {
     public String toString() {
         return firstName + " " + lastName;
     }
+
 }

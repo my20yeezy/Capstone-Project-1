@@ -1,7 +1,6 @@
 package com.pet_projects.school_management_system.security;
 
 import com.pet_projects.school_management_system.models.Role;
-import com.pet_projects.school_management_system.models.SomeUser;
 import com.pet_projects.school_management_system.models.Student;
 import com.pet_projects.school_management_system.models.Teacher;
 import com.pet_projects.school_management_system.repository.StudentRepository;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-//    private UserRepository userRepository;
     private final TeacherRepository teacherRepository;
     private final StudentRepository studentRepository;
 

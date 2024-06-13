@@ -100,12 +100,8 @@ public class CourseController {
 
     @GetMapping("/courses/{courseId}/delete")
     public String deleteCourse(@PathVariable("courseId") Long courseId) {
-        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
-            return "redirect:/";
-        } else {
-            courseService.deleteCourse(courseId);
-            return "redirect:/courses";
-        }
+        courseService.deleteCourse(courseId);
+        return "redirect:/courses";
     }
 
     @PostMapping("/courses/{courseId}/assign")

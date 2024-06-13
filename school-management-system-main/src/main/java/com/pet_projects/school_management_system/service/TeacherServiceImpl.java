@@ -1,6 +1,5 @@
 package com.pet_projects.school_management_system.service;
 
-import com.pet_projects.school_management_system.models.SomeUser;
 import com.pet_projects.school_management_system.models.Teacher;
 import com.pet_projects.school_management_system.repository.RoleRepository;
 import com.pet_projects.school_management_system.repository.TeacherRepository;
@@ -43,4 +42,5 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
     }
+
 }
