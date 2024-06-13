@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header>
+
+    <h1 class="header-text">Error</h1>
+
+    <nav>
+        <a th:href="@{/courses}">courses</a>
+        <a th:href="@{/teachers}">teachers</a>
+        <a th:href="@{/students}">students</a>
+        <a th:href="@{courses/new}" th:if="${teacher != null}">add course</a>
+        <a th:href="@{/logout}">log out</a>
+    </nav>
+</header>
+
+<div class="error">
+    Unexpected error occured, please contact administrator.
+</div>
+
+
+
+</body>
+</html>

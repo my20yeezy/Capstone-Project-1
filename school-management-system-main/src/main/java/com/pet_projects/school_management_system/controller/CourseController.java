@@ -29,34 +29,30 @@ public class CourseController {
     @GetMapping("/courses")
     public String listCourses(Model model) {
         List<Course> courses = courseService.findAllCourses();
-        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
-            return "redirect:/"; //todo maybe delete?
-        } else {
-            Teacher teacher = null;
-            Student student = null;
-            if (securityUtil.getSessionTeacher() != null) {
-                teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
-            }
-            if (securityUtil.getSessionStudent() != null) {
-                student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
-            }
-            courses.sort(Comparator.comparing(Course::getName));
-            model.addAttribute("courses", courses);
-            model.addAttribute("teacher", teacher);
-            model.addAttribute("student", student);
+        Teacher teacher = null;
+        Student student = null;
+        if (securityUtil.getSessionTeacher() != null) {
+            teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
         }
+        if (securityUtil.getSessionStudent() != null) {
+            student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
+        }
+        courses.sort(Comparator.comparing(Course::getName));
+        model.addAttribute("courses", courses);
+        model.addAttribute("teacher", teacher);
+        model.addAttribute("student", student);
         return "courses";
     }
 
     @GetMapping("/courses/new")
     public String addCourseForm(Model model) {
-        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
-            return "redirect:/";
+        if (securityUtil.getSessionTeacher() == null) {
+            return "redirect:/courses";
         } else {
             Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
             model.addAttribute("teacher", teacher);
             Course course = new Course();
-            model.addAttribute("course", course); //todo only teachers should be able to get to this page
+            model.addAttribute("course", course);
             return "add-course";
         }
     }
@@ -75,8 +71,8 @@ public class CourseController {
 
     @GetMapping("/courses/{courseId}/update")
     public String updateCourseForm(@PathVariable("courseId") long courseId, Model model) {
-        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
-            return "redirect:/";
+        if (securityUtil.getSessionTeacher() == null) {
+            return "redirect:/courses";
         } else {
             Course course = courseService.findCourseById(courseId);
             model.addAttribute("course", course);
@@ -100,14 +96,18 @@ public class CourseController {
 
     @GetMapping("/courses/{courseId}/delete")
     public String deleteCourse(@PathVariable("courseId") Long courseId) {
-        courseService.deleteCourse(courseId);
-        return "redirect:/courses";
+        if (securityUtil.getSessionTeacher() == null) {
+            return "redirect:/courses";
+        } else {
+            courseService.deleteCourse(courseId);
+            return "redirect:/courses";
+        }
     }
 
     @PostMapping("/courses/{courseId}/assign")
     public String assignTeacher(@PathVariable("courseId") Long courseId) {
-        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
-            return "redirect:/";
+        if (securityUtil.getSessionTeacher() == null) {
+            return "redirect:/courses";
         } else {
             Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
             Course course = courseService.findCourseById(courseId);
@@ -118,8 +118,8 @@ public class CourseController {
 
     @PostMapping("/courses/{courseId}/unassign")
     public String unassignTeacher(@PathVariable("courseId") Long courseId) {
-        if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
-            return "redirect:/";
+        if (securityUtil.getSessionTeacher() == null) {
+            return "redirect:/courses";
         } else {
             Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
             Course course = courseService.findCourseById(courseId);
@@ -143,7 +143,7 @@ public class CourseController {
     @PostMapping("/courses/{courseId}/drop")
     public String dropCourse(@PathVariable("courseId") Long courseId) {
         if (securityUtil.getSessionTeacher() == null && securityUtil.getSessionStudent() == null) {
-            return "redirect:/";
+            return "redirect:/courses";
         } else {
             Student student = studentService.findByEmail(securityUtil.getSessionStudent().getEmail());
             Course course = courseService.findCourseById(courseId);
@@ -154,21 +154,29 @@ public class CourseController {
 
     @GetMapping("/courses/{courseId}/details")
     public String courseDetailsForm(@PathVariable("courseId") long courseId, Model model) {
-        Course course = courseService.findCourseById(courseId);
-        Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
-        List<Student> students = courseService.findCourseById(courseId).getStudents();
-        model.addAttribute("course", course);
-        model.addAttribute("teacher", teacher);
-        model.addAttribute("students", students);
-        return "course-details";
+        if (securityUtil.getSessionTeacher() == null) {
+            return "redirect:/courses";
+        } else {
+            Course course = courseService.findCourseById(courseId);
+            Teacher teacher = teacherService.findByEmail(securityUtil.getSessionTeacher().getEmail());
+            List<Student> students = courseService.findCourseById(courseId).getStudents();
+            model.addAttribute("course", course);
+            model.addAttribute("teacher", teacher);
+            model.addAttribute("students", students);
+            return "course-details";
+        }
     }
 
     @PostMapping("/courses/{courseId}/drop/{studentId}")
     public String dropStudent(@PathVariable("courseId") Long courseId, @PathVariable("studentId") Long studentId) {
-        Student student = studentService.findById(studentId);
-        Course course = courseService.findCourseById(courseId);
-        courseService.dropCourse(course, student);
-        return "redirect:/courses/{courseId}/details";
+        if (securityUtil.getSessionTeacher() == null) {
+            return "redirect:/courses";
+        } else {
+            Student student = studentService.findById(studentId);
+            Course course = courseService.findCourseById(courseId);
+            courseService.dropCourse(course, student);
+            return "redirect:/courses/{courseId}/details";
+        }
     }
 
     @GetMapping("/teachers")

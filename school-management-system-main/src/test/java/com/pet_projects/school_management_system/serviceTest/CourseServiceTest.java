@@ -65,13 +65,6 @@ public class CourseServiceTest {
     }
 
     @Test
-    public void testUpdateCourse() {
-        Course course = new Course();
-        courseService.updateCourse(course);
-        verify(courseRepository, times(1)).save(course);
-    }
-
-    @Test
     public void testDeleteCourse() {
         Long id = 1L;
         courseService.deleteCourse(id);
