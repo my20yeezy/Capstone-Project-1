@@ -69,7 +69,7 @@
             <td th:text="${student.email}"></td>
             <td>
                 <form th:action="@{/courses/{courseId}/drop/{studentId}(courseId=${course.id}, studentId=${student.id})}" method="post">
-                    <input type="submit" value="Drop">
+                    <input type="submit" value="Drop" class="niceButton">
                 </form>
             </td>
         </tr>

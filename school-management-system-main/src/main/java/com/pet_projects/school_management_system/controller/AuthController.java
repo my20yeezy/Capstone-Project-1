@@ -45,7 +45,6 @@ public class AuthController {
             @Valid @ModelAttribute("teacher") Teacher teacher,
             BindingResult result,
             Model model) {
-
         Teacher existingTeacher = teacherService.findByEmail(teacher.getEmail());
         if (existingTeacher != null || teacher.getEmail().isEmpty() || teacher.getEmail().isBlank()) {
             return "redirect:/register?fail";
